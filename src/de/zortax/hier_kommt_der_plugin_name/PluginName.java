@@ -6,7 +6,7 @@ public class PluginName extends JavaPlugin {
 
 	@Override
 	public void onEnable(){
-		
+		System.out.println("Hallo Welt");
 	}
 	
 	@Override
