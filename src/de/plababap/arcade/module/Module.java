@@ -11,7 +11,7 @@ import org.bukkit.event.Listener;
 import de.plabbabap.arcade.Plugin;
 import de.plabbabap.arcade.data.CustomConfig;
 
-public class Module implements Listener {
+public class Module {
 
 	// Autor: Leo (Zortax)
 	
@@ -37,7 +37,7 @@ public class Module implements Listener {
 		this.ingame = false;
 		this.spawns = new ArrayList<>();
 		this.loadSpawns();
-		this.setup();
+		//this.setup();
 				
 	}
 	

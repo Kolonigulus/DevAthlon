@@ -10,3 +10,6 @@ commands:
    setlobby:
       description: Setzt den Lobbyspawn
       usage: /setlobby
+   checkpoint:
+      description: Fuegt einen Jumpnrun Checkpoint hinzu
+      usage: /checkpoint

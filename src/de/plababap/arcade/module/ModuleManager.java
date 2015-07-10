@@ -42,7 +42,7 @@ public class ModuleManager {
 		
 		players = new ArrayList<>();
 		modules = new ArrayList<>();
-		index = 0;
+		index = -1;
 		game_starting = false;
 		game_started = false;
 		max_players = this.plugin.getConfig().getInt("max_player");		
@@ -91,15 +91,19 @@ public class ModuleManager {
 	
 	public void nextGame(){
 		
+		index++;
+		
 		if(index >= modules.size()){
 			endOfRound();
 		}else{
 			
 			modules.get(index).teleport();
+			modules.get(index).setup();
 			modules.get(index).setIngame(true);
 			modules.get(index).start();
+			
 			lobby = false;
-			index++;
+			
 		}
 		
 		

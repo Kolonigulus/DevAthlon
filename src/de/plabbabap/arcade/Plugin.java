@@ -2,11 +2,9 @@ package de.plabbabap.arcade;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import mainSSQL.SQLTable;
 import mainSSQL.SSQLO;
-import mainSSQL.types.SQLType;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -17,7 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import de.plababap.arcade.module.Module;
 import de.plababap.arcade.module.ModuleManager;
-import de.plababap.arcade.module.oitc.Oitc;
+import de.plababap.arcade.module.parcour.Parcour;
 import de.plabbabap.arcade.data.CustomConfig;
 import de.plabbabap.arcade.listener.GeneralListener;
 
@@ -42,6 +40,7 @@ public class Plugin extends JavaPlugin {
 		modulemanager = new ModuleManager(messages.getConfig(), this);
 
 		//modulemanager.registerModule(new Oitc(this, modulemanager));
+		modulemanager.registerModule(new Parcour(this, this.getModuleManager()));
 
 		// try {
 		// setUpSQL();
@@ -112,6 +111,27 @@ public class Plugin extends JavaPlugin {
 				}
 			}
 		}
+		
+		if(cmd.getName().equalsIgnoreCase("checkpoint")){
+			if (!sender.isOp()) {
+				sender.sendMessage(ChatColor.RED + "Das darfst du nicht!");
+				return true;
+			} else {
+				if (this.getModuleManager().isIngame()) {
+					sender.sendMessage(ChatColor.RED + "Das kannst du nur machen, wenn keine Runde läuft!");
+					return true;
+				} else {
+					
+					for(Module c : this.getModuleManager().getModules()){
+						if(c.getName().equalsIgnoreCase("Parcour")){
+							((Parcour) c).addCheckPoint(((Player) sender).getLocation());
+							sender.sendMessage(ChatColor.GREEN + "Lobbyspawn hinzugefügt!");
+						}
+					}
+					
+				}
+			}
+		}
 
 		return true;
 	}
@@ -139,6 +159,7 @@ public class Plugin extends JavaPlugin {
 	private void registerEvents() {
 		elisten = new GeneralListener(this);
 		this.getServer().getPluginManager().registerEvents(elisten, this);
+		this.getServer().getPluginManager().registerEvents(new Parcour(this, this.getModuleManager()), this);
 		getLogger()
 				.info("CommandListener und EventListener wurden hinzugefügt");
 	}
