@@ -1,4 +1,4 @@
-package de.plabbabab;
+package de.plabbabab.arcade;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import mainSSQL.types.SQLType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PluginName extends JavaPlugin {
+	boolean ingame;
 	SSQLO SQL;
 	String PluginName;
 	ArrayList<SQLTable> TableList;

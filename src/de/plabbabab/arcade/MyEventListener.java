@@ -1,4 +1,4 @@
-package de.plabbabab;
+package de.plabbabab.arcade;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;

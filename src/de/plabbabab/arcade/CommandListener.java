@@ -1,4 +1,4 @@
-package de.plabbabab;
+package de.plabbabab.arcade;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
