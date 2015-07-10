@@ -3,6 +3,7 @@ package de.plababap.arcade.module;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 
@@ -15,6 +16,7 @@ public class ModuleManager {
 	private ArrayList<Player> players;
 	private ArrayList<Module> modules;
 	private int index;
+	private boolean game_starting;
 	
 	
 	private boolean game_started;
@@ -29,6 +31,7 @@ public class ModuleManager {
 		players = new ArrayList<>();
 		modules = new ArrayList<>();
 		index = 0;
+		game_starting = false;
 		game_started = false;
 		
 	}
@@ -44,6 +47,10 @@ public class ModuleManager {
 		
 		if(index >= modules.size()){
 			endOfRound();
+		}else{
+			
+			modules.get(index).
+			
 		}
 		
 		
@@ -62,7 +69,7 @@ public class ModuleManager {
 			return false;
 		}else{
 			players.add(p);
-			
+			broadcast(ChatColor.translateAlternateColorCodes('&', cfg.getString("prefix") + " " + cfg.getString("player_join").replace("%player%", p.getName()).replace("%online%", ""+players.size()).replace("%max%", ""+max_players)));
 			return true;
 		}
 		
@@ -70,7 +77,22 @@ public class ModuleManager {
 		
 	}
 	
+	public void leave(Player p){
+		players.remove(p);
+		broadcast(ChatColor.translateAlternateColorCodes('&', cfg.getString("prefix") + " " + cfg.getString("player_leave").replace("%player%", p.getName()).replace("%online%", ""+players.size()).replace("%max%", ""+max_players)));
+	}
+	
 	public void startTimer(){
+		
+		if(game_starting || game_started){
+			return;
+		}
+		
+		game_starting = true;
+		game_started = false;
+		
+		
+		
 		
 	}
 	
