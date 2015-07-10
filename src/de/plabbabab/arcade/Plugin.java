@@ -10,13 +10,16 @@ import mainSSQL.types.SQLType;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class PluginName extends JavaPlugin {
-	boolean ingame;
+import de.plabbabab.arcade.listener.CommandListener;
+import de.plabbabab.arcade.listener.GeneralListener;
+
+public class Plugin extends JavaPlugin {
+	public boolean ingame;
 	SSQLO SQL;
 	String PluginName;
 	ArrayList<SQLTable> TableList;
 	CommandListener clisten;
-	MyEventListener elisten;
+	GeneralListener elisten;
 
 	@Override
 	public void onEnable() {
@@ -53,9 +56,7 @@ public class PluginName extends JavaPlugin {
 	 * @author Leonhard
 	 */
 	private void registerEvents() {
-		clisten = new CommandListener(this);
-		elisten = new MyEventListener(this);
-		this.getCommand(clisten.Command).setExecutor(clisten);
+		elisten = new GeneralListener(this);
 		this.getServer().getPluginManager().registerEvents(elisten, this);
 		getLogger()
 				.info("CommandListener und EventListener wurden hinzugefügt");
