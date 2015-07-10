@@ -67,10 +67,10 @@ public class CustomConfig {
 	
 	public void saveConfig() {
 	    if (customConfigFile == null) {
-	        customConfigFile = new File(plugin.getDataFolder(), "customConfig.yml");
+	        customConfigFile = new File(plugin.getDataFolder(), name);
 	    }
 	    if (!customConfigFile.exists()) {            
-	         plugin.saveResource("customConfig.yml", false);
+	         plugin.saveResource(name, false);
 	    }
 	}
 	
