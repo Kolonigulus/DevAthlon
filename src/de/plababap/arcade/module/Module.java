@@ -1,11 +1,16 @@
 package de.plababap.arcade.module;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 import de.plabbabab.arcade.Plugin;
 import de.plabbabab.arcade.data.CustomConfig;
@@ -125,42 +130,7 @@ public class Module implements Listener {
 	public void setup(){
 		// Kann später vom entpsrechenden Module überschrieben werden, falls Minispielspezifisches irgendetwas passieren muss
 		
-	}
-	public void respawn(Player player) {
-		Random rdm = new Random();
-		int randomint = rdm.nextInt(spawns.size() - 1);
-		player.teleport(spawns.get(randomint), TeleportCause.PLUGIN);
-	}
-	/** @author Leonhard
-	 * @param event
-	 */
-	@EventHandler
-	public void block(Cancellable event) {
-		if (!ingame) {
-			event.setCancelled(true);
-		}
-	}
-	/** @author Leonhard
-	 * @param event
-	 */
-	@EventHandler
-	public void PlayerDeath(EntityDamageEvent event) {
-		if (respawn) {
-			if (event.getEntity() instanceof Player) {
-				Player player = (Player) event.getEntity();
-				if ((((Damageable) event.getEntity()).getHealth() - event
-						.getDamage()) < 0) {
-					respawn(player);
-				}
-				
-
-				
-			}
-		}
-	}
-
-	
-	
+	}	
 	
 	
 	
