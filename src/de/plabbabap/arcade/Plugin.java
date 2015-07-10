@@ -41,7 +41,7 @@ public class Plugin extends JavaPlugin {
 
 		modulemanager = new ModuleManager(messages.getConfig(), this);
 
-		modulemanager.registerModule(new Oitc(this, modulemanager));
+		//modulemanager.registerModule(new Oitc(this, modulemanager));
 
 		// try {
 		// setUpSQL();
@@ -101,11 +101,14 @@ public class Plugin extends JavaPlugin {
 		if(cmd.getName().equalsIgnoreCase("setlobby")){
 			if (!sender.isOp()) {
 				sender.sendMessage(ChatColor.RED + "Das darfst du nicht!");
+				return true;
 			} else {
 				if (this.getModuleManager().isIngame()) {
 					sender.sendMessage(ChatColor.RED + "Das kannst du nur machen, wenn keine Runde läuft!");
+					return true;
 				} else {
 					this.getModuleManager().setLobbyspawn(((Player) sender).getLocation());
+					sender.sendMessage(ChatColor.GREEN + "Lobbyspawn gesetzt!");
 				}
 			}
 		}

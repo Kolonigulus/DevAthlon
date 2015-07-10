@@ -7,3 +7,6 @@ commands:
    addspawn:
       description: Spawn in Minispiel hinzufuegen.
       usage: /addspawn <Minispiel>
+   setlobby:
+      description: Setzt den Lobbyspawn
+      usage: /setlobby

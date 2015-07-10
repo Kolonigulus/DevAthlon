@@ -32,6 +32,7 @@ public class ModuleManager {
 	private Configuration cfg;
 	
 	private Plugin plugin;
+	private boolean lobby;
 	
 	public ModuleManager(Configuration cfg, Plugin plugin){
 		
@@ -47,6 +48,8 @@ public class ModuleManager {
 		max_players = this.plugin.getConfig().getInt("max_player");		
 		
 		points = new HashMap<>();
+		
+		lobby = true;
 		
 		
 		
@@ -73,6 +76,8 @@ public class ModuleManager {
 		plugin.getConfig().getConfigurationSection("lobbyspawn").set("YAW", loc.getYaw());
 		plugin.getConfig().getConfigurationSection("lobbyspawn").set("PITCH", loc.getPitch());
 		
+		plugin.saveConfig();
+		
 	}
 	
 	public void registerModule(Module module){
@@ -93,6 +98,7 @@ public class ModuleManager {
 			modules.get(index).teleport();
 			modules.get(index).setIngame(true);
 			modules.get(index).start();
+			lobby = false;
 			index++;
 		}
 		
@@ -102,6 +108,31 @@ public class ModuleManager {
 	
 	public HashMap<Player, Integer> getPoints(){
 		return points;
+	}
+	
+	
+	public void finish(Player winner, Module module){
+		
+		lobby = true;
+		
+		for(Player c : this.getPlayers()){
+			c.teleport(this.getLobbyspawn());
+			c.getInventory().clear();
+			c.getActivePotionEffects().clear();
+			c.getEquipment().clear();
+			c.getInventory().setHelmet(null);
+			c.getInventory().setChestplate(null);
+			c.getInventory().setLeggings(null);
+			c.getInventory().setBoots(null);
+			c.setHealth(20);
+			c.setFoodLevel(20);
+			c.setLevel(0);
+			c.setExp(0);
+		}
+		
+		this.broadcast(plugin.getMessageConfig().getString("prefix") + " " + plugin.getMessageConfig().getString("minigame_ended").replace("%game%", module.getName()).replace("%player%", winner.getName()));
+		StartTimer t = new StartTimer();
+		t.start();
 	}
 	
 	public void endOfRound(){
@@ -129,8 +160,9 @@ public class ModuleManager {
 		}
 		
 		
-		if((players.size() >= plugin.getConfig().getInt("players_to_join")) && !game_starting){
-			this.startTimer();
+		if(players.size() >= plugin.getConfig().getInt("players_to_start")){
+			if(game_starting == false)
+				this.startTimer();
 		}
 		
 		return true;
@@ -140,6 +172,10 @@ public class ModuleManager {
 	public void leave(Player p){
 		players.remove(p);
 		broadcast(ChatColor.translateAlternateColorCodes('&', cfg.getString("prefix") + " " + cfg.getString("player_leave").replace("%player%", p.getName()).replace("%online%", ""+players.size()).replace("%max%", ""+max_players)));
+	}
+	
+	public Module getActualModule(){
+		return modules.get(index);
 	}
 	
 	public void startTimer(){
@@ -173,6 +209,10 @@ public class ModuleManager {
 	
 	public Location getLobbyspawn(){
 		return lobbyspawn;
+	}
+	
+	public boolean isInLobby(){
+		return lobby;
 	}
 	
 	

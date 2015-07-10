@@ -6,6 +6,7 @@ import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -38,6 +39,7 @@ public class GeneralListener implements Listener{
 			}
 		}
 		
+		event.getPlayer().teleport(plugin.getModuleManager().getLobbyspawn());
 		event.getPlayer().setGameMode(GameMode.SURVIVAL);
 		event.getPlayer().setHealth(20);
 		event.getPlayer().setFoodLevel(20);
@@ -65,6 +67,13 @@ public class GeneralListener implements Listener{
 			event.setCancelled(true);
 		}
 		
+	}
+	
+	@EventHandler
+	public void onDamage(EntityDamageEvent event){
+		if(plugin.getModuleManager().isInLobby()){
+			event.setCancelled(true);
+		}
 	}
 	
 	
