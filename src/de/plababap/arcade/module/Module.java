@@ -68,11 +68,11 @@ public class Module implements Listener {
 		
 		
 		// Spawn in der Config Speichern
-		for (int i = spawns.size(); i >= 0; i++){
+		for (int i = spawns.size() - 1; i >= 0; i++){
 			if(ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i) == null){
 				
 				ccfg.getConfig().getConfigurationSection("spawns").createSection("spawn" + i);
-				ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).set("world", loc.getWorld());
+				ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).set("world", loc.getWorld().getName());
 				ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).set("X", loc.getX());
 				ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).set("Y", loc.getY());
 				ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).set("Z", loc.getZ());
@@ -102,12 +102,12 @@ public class Module implements Listener {
 		for(int i = 0; i >= 0; i ++){
 			if(ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i) != null){
 				Location loc = new Location(null, 0, 0, 0);
-				loc.setWorld(Bukkit.getWorld(ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getString("world")));
-				loc.setX(ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getDouble(("X")));
-				loc.setY(ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getDouble(("Y")));
-				loc.setZ(ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getDouble(("Z")));
-				loc.setPitch((float) ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getDouble(("PITCH")));
-				loc.setYaw((float) ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getDouble(("YAW")));
+				loc.setWorld(Bukkit.getWorld(ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).getString("world")));
+				loc.setX(ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).getDouble(("X")));
+				loc.setY(ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).getDouble(("Y")));
+				loc.setZ(ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).getDouble(("Z")));
+				loc.setPitch((float) ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).getDouble(("PITCH")));
+				loc.setYaw((float) ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).getDouble(("YAW")));
 				this.spawns.add(loc);
 			}else{
 				break;
