@@ -1,0 +1,9 @@
+new_round: 'Runde %round% beginnt.'
+round_starting_in: '&aDie Runde startet in %sec% Sekunden.'
+round_ending_in: '&aDie Runde endet in %sec% Sekunden.'
+roundwin: '&aDu hast den Kampf gegen %enemy% &2gewonnen!'
+roundlose: '&aDu hast den Kampf  %enemy% &cverloren &aund kommst nicht in die nächste Runde. Dein Gegner hatte noch %enemy_hp% &#9829.'
+
+
+final_win: '&aDu hast das Turnier &2gewonnen!'
+final_lose: '&aDu hast den Kampf &cverloren.' 
