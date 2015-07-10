@@ -1,10 +1,10 @@
 new_round: 'Runde %round% beginnt.'
-round_starting_in: '&aDie Runde startet in %sec% Sekunden.'
-round_ending_in: '&aDie Runde endet in %sec% Sekunden.'
-round_win: '&aDu hast den Kampf gegen %enemy% &2gewonnen!'
-round_lose: '&aDu hast den Kampf  %enemy% &cverloren &aund kommst nicht in die nächste Runde. Dein Gegner hatte noch %enemy_hp% &#9829.'
-round_pass: '&aGlück gehabt! Für dich wurde in dieser Runde kein Gegener gefunden, du bist automatisch in der nächsten Runde'
+round_starting_in: '&9Die Runde startet in &7&l%sec% &r&9Sekunden.'
+round_ending_in: '&9Die Runde endet in &7&l%sec% &r&9Sekunden.'
+round_win: '&9Du hast den Kampf gegen &7&l%enemy% &2gewonnen!'
+round_lose: '&9Du hast den Kampf  &7&l%enemy% &cverloren &r&9und kommst nicht in die nächste Runde. Dein Gegner hatte noch &7&l%enemy_hp% &9 &#9829.'
+round_pass: '&9Glück gehabt! Für dich wurde in dieser Runde kein Gegener gefunden, du bist automatisch in der nächsten Runde'
 
 
-final_win: '&aDu hast das Turnier &2gewonnen!'
-final_lose: '&aDu hast den Kampf &cverloren.' 
+final_win: '&9Du hast das Turnier &2gewonnen!'
+final_lose: '&9Du hast den Kampf &cverloren.' 
