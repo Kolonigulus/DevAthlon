@@ -5,11 +5,17 @@ player_join: '&a%player% hat das Spiel betreten (%online%/%max%)'
 player_leave: '&c%player% hat das Spiel verlassen (%online%/%max%)'
 game_starting_in: '&aDas Spiel startet in %sec% Sekunden!'
 
-new_round: 'Die %round% Runde beginnt.'
-roundwin: 'Du hast den Kampf gegen %enemy% gewonnen!'
-roundlose: 'Du hast den Kampf  %enemy% verloren und kommst nicht in die nächste Runde. Dein Gegner hatte noch %enemy_hp% Herzen.'
 
-final_win: 'Du hast das Turnier gewonnen!'
-final_lose: 'Du hast den Kampf verloren.'
 
-end_game: 'Das Trnier ist beendet. Der Gewinner ist %winner%.
+new_round: 'Runde %round% beginnt.'
+round_starting_in: '&aDie Runde startet in %sec% Sekunden.'
+round_ending_in: '&aDie Runde endet in %sec% Sekunden.'
+roundwin: '&aDu hast den Kampf gegen %enemy% &2gewonnen!'
+roundlose: '&aDu hast den Kampf  %enemy% &cverloren &aund kommst nicht in die nächste Runde. Dein Gegner hatte noch %enemy_hp% &#9829.'
+
+
+
+final_win: '&aDu hast das Turnier &2gewonnen!'
+final_lose: '&aDu hast den Kampf &cverloren.'
+
+game_ending: '&aDas Turnier ist beendet. Der Gewinner ist %winner%. 

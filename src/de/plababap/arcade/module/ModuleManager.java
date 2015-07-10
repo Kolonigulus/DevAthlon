@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 
@@ -19,6 +20,8 @@ public class ModuleManager {
 	private ArrayList<Module> modules;
 	private int index;
 	private boolean game_starting;
+	
+	private Location lobbyspawn;
 	
 	
 	private boolean game_started;
@@ -40,6 +43,32 @@ public class ModuleManager {
 		game_starting = false;
 		game_started = false;
 		max_players = this.plugin.getConfig().getInt("max_player");		
+		
+		
+		
+		if(plugin.getConfig().getConfigurationSection("lobbyspawn") != null){
+			lobbyspawn = new Location(null, 0, 0, 0);
+			lobbyspawn.setWorld(Bukkit.getWorld(plugin.getConfig().getConfigurationSection("lobbyspawn").getString("world")));
+			lobbyspawn.setX(plugin.getConfig().getConfigurationSection("lobbyspawn").getDouble("X"));
+			lobbyspawn.setY(plugin.getConfig().getConfigurationSection("lobbyspawn").getDouble("Y"));
+			lobbyspawn.setZ(plugin.getConfig().getConfigurationSection("lobbyspawn").getDouble("Z"));
+			lobbyspawn.setYaw((float) plugin.getConfig().getConfigurationSection("lobbyspawn").getDouble("YAW"));
+			lobbyspawn.setPitch((float) plugin.getConfig().getConfigurationSection("lobbyspawn").getDouble("PITCH"));
+		}
+		
+	}
+	
+	public void setLobbyspawn(Location loc){
+		if(plugin.getConfig().getConfigurationSection("lobbyspawn") == null)
+			plugin.getConfig().createSection("lobbyspawn");
+		
+		plugin.getConfig().getConfigurationSection("lobbyspawn").set("world", loc.getWorld().getName());
+		plugin.getConfig().getConfigurationSection("lobbyspawn").set("X", loc.getX());
+		plugin.getConfig().getConfigurationSection("lobbyspawn").set("Y", loc.getY());
+		plugin.getConfig().getConfigurationSection("lobbyspawn").set("Z", loc.getZ());
+		plugin.getConfig().getConfigurationSection("lobbyspawn").set("YAW", loc.getYaw());
+		plugin.getConfig().getConfigurationSection("lobbyspawn").set("PITCH", loc.getPitch());
+		
 	}
 	
 	public void registerModule(Module module){
@@ -128,6 +157,10 @@ public class ModuleManager {
 	
 	public ArrayList<Module> getModules(){
 		return modules;
+	}
+	
+	public Location getLobbyspawn(){
+		return lobbyspawn;
 	}
 	
 	
