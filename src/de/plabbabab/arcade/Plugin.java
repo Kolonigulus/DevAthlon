@@ -10,7 +10,6 @@ import mainSSQL.types.SQLType;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import de.plabbabab.arcade.listener.CommandListener;
 import de.plabbabab.arcade.listener.GeneralListener;
 
 public class Plugin extends JavaPlugin {
@@ -18,7 +17,7 @@ public class Plugin extends JavaPlugin {
 	SSQLO SQL;
 	String PluginName;
 	ArrayList<SQLTable> TableList;
-	CommandListener clisten;
+	
 	GeneralListener elisten;
 
 	@Override
