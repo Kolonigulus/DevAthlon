@@ -143,7 +143,10 @@ public class Module implements Listener {
 	public void setup(){
 		// Kann später vom entpsrechenden Module überschrieben werden, falls Minispielspezifisches irgendetwas passieren muss
 		
-	}	
+	}
+	public Plugin getPlugin(){
+		return plugin;
+	}
 	
 	
 	
