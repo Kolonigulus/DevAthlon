@@ -1,4 +1,4 @@
-package de.zortax.hier_kommt_der_plugin_name;
+package de.plabbabab;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package de.zortax.hier_kommt_der_plugin_name;
+package de.plabbabab;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
