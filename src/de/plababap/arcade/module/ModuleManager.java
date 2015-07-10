@@ -1,6 +1,7 @@
 package de.plababap.arcade.module;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,6 +19,7 @@ public class ModuleManager {
 	
 	private ArrayList<Player> players;
 	private ArrayList<Module> modules;
+	private HashMap<Player, Integer> points;
 	private int index;
 	private boolean game_starting;
 	
@@ -43,6 +45,8 @@ public class ModuleManager {
 		game_starting = false;
 		game_started = false;
 		max_players = this.plugin.getConfig().getInt("max_player");		
+		
+		points = new HashMap<>();
 		
 		
 		
@@ -96,12 +100,20 @@ public class ModuleManager {
 		
 	}
 	
+	public HashMap<Player, Integer> getPoints(){
+		return points;
+	}
+	
 	public void endOfRound(){
 		// wird aufgerufen, wenn ALLE Minispiele beendet sind
 		
 		
 		
 		
+	}
+	
+	public void setPoints(Player p, int points){
+		this.points.put(p, points);
 	}
 	
 	
@@ -169,6 +181,7 @@ public class ModuleManager {
 	
 	private class StartTimer extends Thread{
 
+		@SuppressWarnings("static-access")
 		@Override
 		public void run() {
 			
