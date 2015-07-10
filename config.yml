@@ -1,2 +1,9 @@
 max_player: 12
 players_to_start: 6
+
+MySQL:
+    url:
+    port:
+    database:
+    user:
+    passwd:
