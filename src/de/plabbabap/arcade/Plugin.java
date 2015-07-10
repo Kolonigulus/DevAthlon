@@ -98,8 +98,19 @@ public class Plugin extends JavaPlugin {
 				}
 			}
 		}
+		if(cmd.getName().equalsIgnoreCase("setlobby")){
+			if (!sender.isOp()) {
+				sender.sendMessage(ChatColor.RED + "Das darfst du nicht!");
+			} else {
+				if (this.getModuleManager().isIngame()) {
+					sender.sendMessage(ChatColor.RED + "Das kannst du nur machen, wenn keine Runde läuft!");
+				} else {
+					this.getModuleManager().setLobbyspawn(((Player) sender).getLocation());
+				}
+			}
+		}
 
-		return false;
+		return true;
 	}
 
 	public SSQLO getSQLO() {
