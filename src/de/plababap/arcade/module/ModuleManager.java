@@ -49,8 +49,8 @@ public class ModuleManager {
 			endOfRound();
 		}else{
 			
-			modules.get(index).
-			
+			modules.get(index);
+			index++;
 		}
 		
 		
