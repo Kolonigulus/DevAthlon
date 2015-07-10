@@ -6,6 +6,9 @@ import java.util.HashMap;
 import mainSSQL.SQLTable;
 import mainSSQL.types.SQLType;
 import mainSSQL.types.SQLTypesEnum;
+
+import org.bukkit.entity.Player;
+
 import de.plababap.arcade.module.Module;
 import de.plababap.arcade.module.ModuleManager;
 import de.plabbabap.arcade.Plugin;
@@ -16,6 +19,8 @@ import de.plabbabap.arcade.Plugin;
  */
 public class Oitc extends Module {
 	protected SQLTable table;
+	protected HashMap<Player, Integer> kills;
+	protected HashMap<Player, Integer> deaths;
 
 	public Oitc(Plugin plugin, ModuleManager modulemanager) {
 		super(plugin, modulemanager, "OITC");
@@ -26,6 +31,10 @@ public class Oitc extends Module {
 	public void start() {
 		this.getPlugin().getServer().getPluginManager()
 				.registerEvents(new IngameOITCListener(this), this.getPlugin());
+		for(Player c : getPlugin().getModuleManager().getPlayers()){
+			kills.put(c, 0);
+			deaths.put(c, 0);
+		}
 		}
 
 	/**
