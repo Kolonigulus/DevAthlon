@@ -7,6 +7,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 
+import de.plabbabap.arcade.Plugin;
+
 public class ModuleManager {
 	
 	
@@ -24,7 +26,11 @@ public class ModuleManager {
 	
 	private Configuration cfg;
 	
-	public ModuleManager(Configuration cfg){
+	private Plugin plugin;
+	
+	public ModuleManager(Configuration cfg, Plugin plugin){
+		
+		this.plugin = plugin;
 		
 		this.cfg = cfg;
 		
@@ -33,7 +39,7 @@ public class ModuleManager {
 		index = 0;
 		game_starting = false;
 		game_started = false;
-		
+		max_players = this.plugin.getConfig().getInt("max_player");		
 	}
 	
 	public void registerModule(Module module){

@@ -1,19 +1,15 @@
 package de.plababap.arcade.module;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Damageable;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
 
-import de.plabbabab.arcade.Plugin;
-import de.plabbabab.arcade.data.CustomConfig;
+import de.plabbabap.arcade.Plugin;
+import de.plabbabap.arcade.data.CustomConfig;
 
 public class Module implements Listener {
 
@@ -27,7 +23,6 @@ public class Module implements Listener {
 	
 	private Plugin plugin;
 	private ModuleManager modulemanager;
-	private boolean respawn;
 	private CustomConfig ccfg;
 	
 	public Module(Plugin plugin, ModuleManager modulemanager, String name){
@@ -49,8 +44,16 @@ public class Module implements Listener {
 		return name;
 	}
 	
+	public final Configuration getConfig(){
+		return ccfg.getConfig();
+	}
+	
 	public final void setSpawns(ArrayList<Location> locs){
 		spawns = locs;
+	}
+	
+	public final boolean isIngame(){
+		return ingame;
 	}
 	
 	public final void addSpawn(Location loc){

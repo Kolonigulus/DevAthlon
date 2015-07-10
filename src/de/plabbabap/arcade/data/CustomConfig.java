@@ -1,4 +1,4 @@
-package de.plabbabab.arcade.data;
+package de.plabbabap.arcade.data;
 
 import java.io.File;
 import java.io.InputStreamReader;
@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import de.plabbabab.arcade.Plugin;
+import de.plabbabap.arcade.Plugin;
 
 
 public class CustomConfig {

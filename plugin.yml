@@ -1,0 +1,5 @@
+name: Arcade
+main: de.plabbabap.arcade.Plugin
+version: 1.0
+author: Zortax
+description: DevAthlon Projekt
