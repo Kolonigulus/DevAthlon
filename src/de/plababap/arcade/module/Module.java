@@ -46,6 +46,16 @@ public class Module implements Listener {
 		spawns.add(loc);
 	}
 	
+	public final void teleport(){
+		
+		
+		
+	}
+	
+	public void start(){
+		// Muss vom entsprechenden Module überschrieben werden
+	}
+	
 	
 	
 	
