@@ -1,6 +1,11 @@
 package de.plababap.arcade.module;
 
+import java.util.ArrayList;
+
+import org.bukkit.Location;
 import org.bukkit.event.Listener;
+
+import de.plabbabab.arcade.Plugin;
 
 public class Module implements Listener {
 
@@ -9,14 +14,21 @@ public class Module implements Listener {
 	// Dies ist die Superclass, die die einzelnen Minispiele dann erweitern
 	
 	private String name;
-	boolean ingame;
+	private boolean ingame;
+	private ArrayList<Location> spawns;	
 	
+	private Plugin plugin;
+	private ModuleManager modulemanager;
 	
-	public Module(String name){
+	public Module(Plugin plugin, ModuleManager modulemanager, String name){
 		
+		this.plugin = plugin;
+		this.modulemanager = modulemanager;
 		this.name = name;
-		this.ingame = false;
 		
+		
+		this.ingame = false;
+		this.spawns = new ArrayList<>();
 		
 		this.setup();
 				
@@ -24,6 +36,14 @@ public class Module implements Listener {
 	
 	public final String getName(){
 		return name;
+	}
+	
+	public final void setSpawns(ArrayList<Location> locs){
+		spawns = locs;
+	}
+	
+	public final void addSpawn(Location loc){
+		spawns.add(loc);
 	}
 	
 	
