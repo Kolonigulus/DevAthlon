@@ -49,11 +49,38 @@ public class Module implements Listener {
 	}
 	
 	public final void addSpawn(Location loc){
+		
+		
 		spawns.add(loc);
+		
+		
+		// Die 
+		for (int i = spawns.size(); i >= 0; i++){
+			if(ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i) == null){
+				
+				ccfg.getConfig().getConfigurationSection("spawns").createSection("spawn" + i);
+				ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).set("world", loc.getWorld());
+				ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).set("X", loc.getX());
+				ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).set("Y", loc.getY());
+				ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).set("Z", loc.getZ());
+				ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).set("YAW", loc.getYaw());
+				ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).set("PITCH", loc.getPitch());
+				
+				ccfg.saveConfig();
+				
+				
+				break;
+			}
+		}
+		
+		
 	}
 	
 	
 	public final void loadSpawns(){
+		
+		// Alle Spawns aus der Config des Minigames laden und Location Objekte erzeugen
+		
 		for(int i = 0; i >= 0; i ++){
 			if(ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i) != null){
 				Location loc = new Location(null, 0, 0, 0);
@@ -63,7 +90,7 @@ public class Module implements Listener {
 				loc.setZ(ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getDouble(("Z")));
 				loc.setPitch((float) ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getDouble(("PITCH")));
 				loc.setYaw((float) ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getDouble(("YAW")));
-				this.addSpawn(loc);
+				this.spawns.add(loc);
 			}else{
 				break;
 			}
