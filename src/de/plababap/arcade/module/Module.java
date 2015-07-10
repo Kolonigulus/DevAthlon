@@ -22,7 +22,7 @@ public class Module implements Listener {
 	
 	private Plugin plugin;
 	private ModuleManager modulemanager;
-	
+	private boolean respawn;
 	private CustomConfig ccfg;
 	
 	public Module(Plugin plugin, ModuleManager modulemanager, String name){
@@ -99,7 +99,7 @@ public class Module implements Listener {
 	
 	public final void teleport(){
 		
-		// Wenn nicht genügend Spawns vorhanden sind, alle Spieler zum ersten teleportierem (könnte von Module gewollt sein...)
+		// Wenn nicht genÃ¼gend Spawns vorhanden sind, alle Spieler zum ersten teleportierem (kÃ¶nnte von Module gewollt sein...)
 		
 		if(modulemanager.getPlayers().size() < spawns.size()){
 			for(Player c : modulemanager.getPlayers()){
@@ -115,7 +115,7 @@ public class Module implements Listener {
 	}
 	
 	public void start(){
-		// Muss vom entsprechenden Module überschrieben werden
+		// Muss vom entsprechenden Module Ã¼berschrieben werden
 	}
 	
 	
@@ -123,9 +123,42 @@ public class Module implements Listener {
 	
 	
 	public void setup(){
-		// Kann später vom entpsrechenden Module überschrieben werden, falls Minispielspezifisches irgendetwas passieren muss
+		// Kann spÃ¤ter vom entpsrechenden Module Ã¼berschrieben werden, falls Minispielspezifisches irgendetwas passieren muss
 		
 	}
+	public void respawn(Player player) {
+		Random rdm = new Random();
+		int randomint = rdm.nextInt(spawns.size() - 1);
+		player.teleport(spawns.get(randomint), TeleportCause.PLUGIN);
+	}
+	/** @author Leonhard
+	 * @param event
+	 */
+	@EventHandler
+	public void block(Cancellable event) {
+		if (!ingame) {
+			event.setCancelled(true);
+		}
+	}
+	/** @author Leonhard
+	 * @param event
+	 */
+	@EventHandler
+	public void PlayerDeath(EntityDamageEvent event) {
+		if (respawn) {
+			if (event.getEntity() instanceof Player) {
+				Player player = (Player) event.getEntity();
+				if ((((Damageable) event.getEntity()).getHealth() - event
+						.getDamage()) < 0) {
+					respawn(player);
+				}
+				
+
+				
+			}
+		}
+	}
+
 	
 	
 	
