@@ -50,6 +50,10 @@ public class Module implements Listener {
 		return ccfg.getConfig();
 	}
 	
+	public final CustomConfig getCustomConfig(){
+		return ccfg;
+	}
+	
 	public final void setSpawns(ArrayList<Location> locs){
 		spawns = locs;
 	}
