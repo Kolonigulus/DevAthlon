@@ -4,3 +4,12 @@ game_full: '&cDieses Spiel ist bereits voll!'
 player_join: '&a%player% hat das Spiel betreten (%online%/%max%)'
 player_leave: '&c%player% hat das Spiel verlassen (%online%/%max%)'
 game_starting_in: '&aDas Spiel startet in %sec% Sekunden!'
+
+new_round: 'Die %round% Runde beginnt.'
+roundwin: 'Du hast den Kampf gegen %enemy% gewonnen!'
+roundlose: 'Du hast den Kampf  %enemy% verloren und kommst nicht in die nächste Runde. Dein Gegner hatte noch %enemy_hp% Herzen.'
+
+final_win: 'Du hast das Turnier gewonnen!'
+final_lose: 'Du hast den Kampf verloren.'
+
+end_game: 'Das Trnier ist beendet. Der Gewinner ist %winner%.

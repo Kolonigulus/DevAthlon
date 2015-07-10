@@ -38,7 +38,7 @@ public class GeneralListener implements Listener{
 			}
 		}
 		
-		event.getPlayer().setGameMode(GameMode.ADVENTURE);
+		event.getPlayer().setGameMode(GameMode.SURVIVAL);
 		event.getPlayer().setHealth(20);
 		event.getPlayer().setFoodLevel(20);
 		event.getPlayer().getInventory().clear();
