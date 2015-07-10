@@ -3,8 +3,8 @@ allready_ingame: '&cDas Spiel hat bereits begonnen!'
 game_full: '&cDieses Spiel ist bereits voll!'
 player_join: '&a%player% hat das Spiel betreten (%online%/%max%)'
 player_leave: '&c%player% hat das Spiel verlassen (%online%/%max%)'
-game_starting_in: '&aDas Spiel startet in %sec% Sekunden!'
+game_starting_in: '&aDas Spiel startet in &6&l%sec% &r&aSekunden!'
 
-minigame_ended: '&aDas Minigame %game% ist zuende. Der beste Spieler war %player%'
+minigame_ended: '&aDas Minigame &6%game% &aist zuende. Der beste Spieler war &6%player%'
 
 
