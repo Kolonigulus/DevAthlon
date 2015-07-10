@@ -12,6 +12,7 @@ import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import de.plababap.arcade.module.ModuleManager;
+import de.plababap.arcade.module.oitc.Oitc;
 import de.plabbabab.arcade.listener.GeneralListener;
 import de.plabbabap.arcade.data.CustomConfig;
 
@@ -35,6 +36,8 @@ public class Plugin extends JavaPlugin {
 		messages.saveConfig();
 		
 		modulemanager = new ModuleManager(messages.getConfig(), this);
+		
+		modulemanager.registerModule(new Oitc(this, modulemanager));
 		
 		//try {
 			//setUpSQL();

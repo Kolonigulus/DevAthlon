@@ -31,11 +31,12 @@ public class Module implements Listener {
 		this.modulemanager = modulemanager;
 		this.name = name;
 		ccfg = new CustomConfig(name, this.plugin);
+		ccfg.saveConfig();
 		
 		
 		this.ingame = false;
 		this.spawns = new ArrayList<>();
-		
+		this.loadSpawns();
 		this.setup();
 				
 	}
@@ -54,6 +55,10 @@ public class Module implements Listener {
 	
 	public final boolean isIngame(){
 		return ingame;
+	}
+	
+	public final void setIngame(boolean value){
+		ingame = value;
 	}
 	
 	public final void addSpawn(Location loc){

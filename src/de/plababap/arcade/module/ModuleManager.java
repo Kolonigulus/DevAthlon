@@ -55,7 +55,9 @@ public class ModuleManager {
 			endOfRound();
 		}else{
 			
-			modules.get(index);
+			modules.get(index).teleport();
+			modules.get(index).setIngame(true);
+			modules.get(index).start();
 			index++;
 		}
 		
@@ -65,6 +67,10 @@ public class ModuleManager {
 	
 	public void endOfRound(){
 		// wird aufgerufen, wenn ALLE Minispiele beendet sind
+		
+		
+		
+		
 	}
 	
 	
@@ -76,10 +82,15 @@ public class ModuleManager {
 		}else{
 			players.add(p);
 			broadcast(ChatColor.translateAlternateColorCodes('&', cfg.getString("prefix") + " " + cfg.getString("player_join").replace("%player%", p.getName()).replace("%online%", ""+players.size()).replace("%max%", ""+max_players)));
-			return true;
+
 		}
 		
 		
+		if((players.size() >= plugin.getConfig().getInt("players_to_join")) && !game_starting){
+			this.startTimer();
+		}
+		
+		return true;
 		
 	}
 	
@@ -97,6 +108,9 @@ public class ModuleManager {
 		game_starting = true;
 		game_started = false;
 		
+		StartTimer t = new StartTimer();
+		t.start();
+		
 		
 		
 		
@@ -113,7 +127,56 @@ public class ModuleManager {
 	
 	
 	
-	
+	private class StartTimer extends Thread{
+
+		@Override
+		public void run() {
+			
+			for(int i = 30; i > 0; i--){
+			
+				for(Player c : players){
+					c.setLevel(i);
+					c.setExp(0);
+				}
+				
+				if(i == 30){
+					broadcast(cfg.getString("prefix") + " " + cfg.getString("game_starting_in").replace("%sec%", i + ""));
+				}
+				
+				if(i == 15){
+					broadcast(cfg.getString("prefix") + " " + cfg.getString("game_starting_in").replace("%sec%", i + ""));
+				}
+				
+				if(i <= 10){
+					broadcast(cfg.getString("prefix") + " " + cfg.getString("game_starting_in").replace("%sec%", i + ""));
+				}
+				
+				try {
+					this.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				
+				
+			}
+			
+			
+			for(Player c : players){
+				c.setLevel(0);
+				c.setExp(1);
+			}
+			
+			game_started = true;
+			
+			nextGame();
+			
+			
+			
+			
+		}
+		
+	}
 	
 	
 	
@@ -128,7 +191,7 @@ public class ModuleManager {
 	
 	
 	public void broadcast(String msg){
-		Bukkit.broadcastMessage(msg);
+		Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', msg));
 	}
 	
 	

@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import de.plabbabap.arcade.Plugin;
 
@@ -41,6 +42,11 @@ public class GeneralListener implements Listener{
 		event.getPlayer().setHealth(20);
 		event.getPlayer().setFoodLevel(20);
 		event.getPlayer().getInventory().clear();
+	}
+	
+	@EventHandler
+	public void quit(PlayerQuitEvent event){
+		plugin.getModuleManager().leave(event.getPlayer());
 	}
 	
 	

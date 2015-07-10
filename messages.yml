@@ -1,5 +1,6 @@
 prefix: '&8>>'
 allready_ingame: '&cDas Spiel hat bereits begonnen!'
 game_full: '&cDieses Spiel ist bereits voll!'
-player_join: '%player% hat das Spiel betreten (%online%/%max%)'
-player_leave: '%player% hat das Spiel verlassen (%online%/%max%)'
+player_join: '&a%player% hat das Spiel betreten (%online%/%max%)'
+player_leave: '&c%player% hat das Spiel verlassen (%online%/%max%)'
+game_starting_in: '&aDas Spiel startet in %sec% Sekunden!'
