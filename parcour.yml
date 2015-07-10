@@ -1,0 +1,7 @@
+
+
+round_starting_in: '&aDIe Runde beginnt in &6&l%sec% &r&aSekunden.'
+game_endind: '&aDie Runde ist zuende. &6&l%player% &r&a hat das Ziel erreicht.'
+reach_cheackpoit: '&aDu hast den Checkpoint &6&l%checkpoint% &r&aerreicht!'
+
+reach_goal: '&aDu bist ins Ziel gekommen. Du &6&lgewinnst &r&adieses Minigame!'
