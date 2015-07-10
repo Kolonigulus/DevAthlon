@@ -96,6 +96,9 @@ public class ModuleManager {
 		
 	}
 	
+	public ArrayList<Player> getPlayers(){
+		return players;
+	}
 	
 	
 	

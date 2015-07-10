@@ -2,10 +2,13 @@ package de.plababap.arcade.module;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import de.plabbabab.arcade.Plugin;
+import de.plabbabab.arcade.data.CustomConfig;
 
 public class Module implements Listener {
 
@@ -20,11 +23,14 @@ public class Module implements Listener {
 	private Plugin plugin;
 	private ModuleManager modulemanager;
 	
+	private CustomConfig ccfg;
+	
 	public Module(Plugin plugin, ModuleManager modulemanager, String name){
 		
 		this.plugin = plugin;
 		this.modulemanager = modulemanager;
 		this.name = name;
+		ccfg = new CustomConfig(name, this.plugin);
 		
 		
 		this.ingame = false;
@@ -46,8 +52,37 @@ public class Module implements Listener {
 		spawns.add(loc);
 	}
 	
+	
+	public final void loadSpawns(){
+		for(int i = 0; i >= 0; i ++){
+			if(ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i) != null){
+				Location loc = new Location(null, 0, 0, 0);
+				loc.setWorld(Bukkit.getWorld(ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getString("world")));
+				loc.setX(ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getDouble(("X")));
+				loc.setY(ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getDouble(("Y")));
+				loc.setZ(ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getDouble(("Z")));
+				loc.setPitch((float) ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getDouble(("PITCH")));
+				loc.setYaw((float) ccfg.getConfig().getConfigurationSection("spawn").getConfigurationSection("spanw" + i).getDouble(("YAW")));
+				this.addSpawn(loc);
+			}else{
+				break;
+			}
+		}
+	}
+	
 	public final void teleport(){
 		
+		// Wenn nicht genügend Spawns vorhanden sind, alle Spieler zum ersten teleportierem (könnte von Module gewollt sein...)
+		
+		if(modulemanager.getPlayers().size() < spawns.size()){
+			for(Player c : modulemanager.getPlayers()){
+				c.teleport(spawns.get(1));
+			}
+		}else{
+			for(int i = 0; i < modulemanager.getPlayers().size(); i ++){
+				modulemanager.getPlayers().get(i).teleport(spawns.get(i));
+			}
+		}
 		
 		
 	}
