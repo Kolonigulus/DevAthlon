@@ -8,8 +8,11 @@ import mainSSQL.SQLTable;
 import mainSSQL.SSQLO;
 import mainSSQL.types.SQLType;
 
+import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.plababap.arcade.module.ModuleManager;
+import de.plabbabab.arcade.data.CustomConfig;
 import de.plabbabab.arcade.listener.GeneralListener;
 
 public class Plugin extends JavaPlugin {
@@ -18,10 +21,19 @@ public class Plugin extends JavaPlugin {
 	String PluginName;
 	ArrayList<SQLTable> TableList;
 	
+	ModuleManager modulemanager;
+	CustomConfig messages;
+	
 	GeneralListener elisten;
 
+	
 	@Override
 	public void onEnable() {
+		
+		messages = new CustomConfig("messages.yml", this);
+		
+		modulemanager = new ModuleManager(messages.getConfig());
+		
 		try {
 			setUpSQL();
 
@@ -36,6 +48,16 @@ public class Plugin extends JavaPlugin {
 	@Override
 	public void onDisable() {
 
+	}
+	
+	
+	
+	public ModuleManager getModuleManager(){
+		return modulemanager;
+	}
+	
+	public Configuration getMessageConfig(){
+		return messages.getConfig();
 	}
 
 	/**

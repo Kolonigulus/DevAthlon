@@ -54,7 +54,7 @@ public class Module implements Listener {
 		spawns.add(loc);
 		
 		
-		// Die 
+		// Spawn in der Config Speichern
 		for (int i = spawns.size(); i >= 0; i++){
 			if(ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i) == null){
 				

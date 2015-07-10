@@ -100,6 +100,10 @@ public class ModuleManager {
 		return players;
 	}
 	
+	public boolean isIngame(){
+		return game_started;
+	}
+	
 	
 	
 	
