@@ -43,6 +43,8 @@ public class ModuleManager {
 	}
 	
 	public void registerModule(Module module){
+		
+		
 		// Ein Minispiel registrieren, muss bei Pluginstart für jedes Minispiel aufgerufen werden
 		
 		modules.add(module);
@@ -123,6 +125,11 @@ public class ModuleManager {
 	public boolean isIngame(){
 		return game_started;
 	}
+	
+	public ArrayList<Module> getModules(){
+		return modules;
+	}
+	
 	
 	
 	

@@ -30,7 +30,7 @@ public class Module implements Listener {
 		this.plugin = plugin;
 		this.modulemanager = modulemanager;
 		this.name = name;
-		ccfg = new CustomConfig(name, this.plugin);
+		ccfg = new CustomConfig(name + ".yml", this.plugin);
 		ccfg.saveConfig();
 		
 		
@@ -79,7 +79,7 @@ public class Module implements Listener {
 				ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).set("YAW", loc.getYaw());
 				ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i).set("PITCH", loc.getPitch());
 				
-				ccfg.saveConfig();
+				ccfg.forceSave();
 				
 				
 				break;
@@ -93,6 +93,11 @@ public class Module implements Listener {
 	public final void loadSpawns(){
 		
 		// Alle Spawns aus der Config des Minigames laden und Location Objekte erzeugen
+		
+		if(ccfg.getConfig().getConfigurationSection("spawns") == null){
+			ccfg.getConfig().createSection("spawns");
+			ccfg.saveConfig();
+		}
 		
 		for(int i = 0; i >= 0; i ++){
 			if(ccfg.getConfig().getConfigurationSection("spawns").getConfigurationSection("spawn" + i) != null){
