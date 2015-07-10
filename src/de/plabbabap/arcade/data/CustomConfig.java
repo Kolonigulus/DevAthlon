@@ -1,6 +1,7 @@
 package de.plabbabap.arcade.data;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
@@ -72,6 +73,14 @@ public class CustomConfig {
 	    if (!customConfigFile.exists()) {            
 	         plugin.saveResource(name, false);
 	    }
+	}
+	
+	public void forceSave(){
+		try {
+			customConfig.save(customConfigFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
