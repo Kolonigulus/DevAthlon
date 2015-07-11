@@ -13,12 +13,12 @@ import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import de.plababap.arcade.module.Module;
-import de.plababap.arcade.module.ModuleManager;
-import de.plababap.arcade.module.oitc.Oitc;
-import de.plababap.arcade.module.parcour.Parcour;
+import de.plababbap.arcade.module.Module;
+import de.plababbap.arcade.module.ModuleManager;
 import de.plabbabap.arcade.data.CustomConfig;
 import de.plabbabap.arcade.listener.GeneralListener;
+import de.plabbabap.arcade.module.oitc.Oitc;
+import de.plabbabap.arcade.module.parcour.Parcour;
 
 public class Plugin extends JavaPlugin {
 	public boolean ingame;
