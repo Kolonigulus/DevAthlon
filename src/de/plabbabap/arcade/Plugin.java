@@ -45,7 +45,7 @@ public class Plugin extends JavaPlugin {
 		
 		parc = new Parcour(this, this.getModuleManager());
 
-		//modulemanager.registerModule(new Oitc(this, modulemanager));
+		modulemanager.registerModule(new Oitc(this, modulemanager));
 		modulemanager.registerModule(parc);
 		//modulemanager.registerModule(new Oitc(this, modulemanager));
 		 try {
