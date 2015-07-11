@@ -32,7 +32,9 @@ public class IngameOITCListener implements Listener {
 
 	@EventHandler
 	public void onDeath(EntityDamageEvent event) {
-		if (oitc.isIngame()) {
+		if (oitc.getPlugin().getModuleManager().getActualModule().getName()
+				.equalsIgnoreCase(oitc.getName())
+				&& (oitc.getPlugin().getModuleManager().isInLobby() == false)) {
 			if (event.getEntity() instanceof Player) {
 				Player player = (Player) event.getEntity();
 				if (((Damageable) player).getHealth() < event.getDamage()) {
@@ -81,7 +83,7 @@ public class IngameOITCListener implements Listener {
 			oitc.getPlugin().getServer().getPluginManager()
 					.callEvent(new PlayerWinOITCEvent(oitc, event.getKiller()));
 		}
-		if (event.killedByPlayer()) { //gibt die Pfeile
+		if (event.killedByPlayer()) { // gibt die Pfeile
 			int arrowcount = 1;
 			if (event.getKiller().getInventory().getItem(5).getAmount() > 0) {
 				event.getKiller().getInventory()
@@ -95,7 +97,9 @@ public class IngameOITCListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onArrow(EntityDamageByEntityEvent event) {
-		if (oitc.isIngame()) {
+		if (oitc.getPlugin().getModuleManager().getActualModule().getName()
+				.equalsIgnoreCase(oitc.getName())
+				&& (oitc.getPlugin().getModuleManager().isInLobby() == false)) {
 			if (event.getDamager().getType().equals(EntityType.ARROW)) {
 				event.setDamage(50);
 			}
