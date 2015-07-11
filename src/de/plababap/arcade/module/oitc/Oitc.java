@@ -1,6 +1,7 @@
 package de.plababap.arcade.module.oitc;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import mainSSQL.SQLTable;
@@ -21,6 +22,7 @@ public class Oitc extends Module {
 	protected SQLTable table;
 	protected HashMap<Player, Integer> kills;
 	protected HashMap<Player, Integer> deaths;
+	protected ArrayList<Player> isOut;
 
 	public Oitc(Plugin plugin, ModuleManager modulemanager) {
 		super(plugin, modulemanager, "OITC");
@@ -44,6 +46,9 @@ public class Oitc extends Module {
 	@Override
 	public void setup() {
 		// HashMap und SQLTable für Oitc erzeugen
+		kills = new HashMap<Player, Integer>();
+		deaths = new HashMap<Player, Integer>();
+		isOut = new ArrayList<Player>();
 		HashMap<String, SQLType> header = new HashMap<String, SQLType>();
 		header.put("UUID", new SQLType(SQLTypesEnum.TINYTEXT));
 		header.put("Wins", new SQLType(SQLTypesEnum.INT));
