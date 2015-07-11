@@ -124,12 +124,12 @@ public class Module {
 		
 		// Wenn nicht genügend Spawns vorhanden sind, alle Spieler zum ersten teleportierem (könnte von Module gewollt sein...)
 		
-		if(modulemanager.getPlayers().size() > spawns.size()){
+		if(this.getPlugin().getModuleManager().getPlayers().size() > this.spawns.size()){
 			for(Player c : modulemanager.getPlayers()){
 				c.teleport(spawns.get(0));
 			}
 		}else{
-			for(int i = 0; i < modulemanager.getPlayers().size(); i ++){
+			for(int i = 0; i < this.getPlugin().getModuleManager().getPlayers().size(); i ++){
 				modulemanager.getPlayers().get(i).teleport(spawns.get(i));
 			}
 		}
