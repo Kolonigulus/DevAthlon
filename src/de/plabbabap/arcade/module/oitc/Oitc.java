@@ -52,13 +52,6 @@ public class Oitc extends Module {
 		header.put("Wins", new SQLType(SQLTypesEnum.INT));
 		header.put("Kills", new SQLType(SQLTypesEnum.INT));
 		header.put("Deaths", new SQLType(SQLTypesEnum.INT));
-		try {
-			table = getPlugin().getSQLO().CreateTable(header,
-					"oitc");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 }
