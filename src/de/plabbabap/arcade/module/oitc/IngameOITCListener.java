@@ -115,6 +115,6 @@ public class IngameOITCListener implements Listener {
 		
 		
 		oitc.getPlugin().getModuleManager().finish(oitc);
-			}
+		}
 			
 	}

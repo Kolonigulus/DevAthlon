@@ -21,6 +21,9 @@ public class PlayerKilledEvent extends Event {
 		// TODO Auto-generated method stub
 		return handlers;
 	}
+	public static HandlerList getHandlerList() {
+	    return handlers;
+	}
 
 	public PlayerKilledEvent(EntityDamageEvent event) {
 		cause = event;
