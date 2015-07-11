@@ -97,8 +97,9 @@ public class ModuleManager {
 			endOfRound();
 		}else{
 			
-			modules.get(index).teleport();
+			
 			modules.get(index).setup();
+			modules.get(index).teleport();
 			modules.get(index).setIngame(true);
 			Bukkit.broadcastMessage("[ModuleManager] Inageme: " + modules.get(index).isIngame());
 			modules.get(index).start();
@@ -180,7 +181,10 @@ public class ModuleManager {
 	}
 	
 	public Module getActualModule(){
-		return modules.get(index);
+		if(index >= 0)
+			return modules.get(index);
+		
+		return null;
 	}
 	
 	public void startTimer(){

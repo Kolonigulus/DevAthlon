@@ -61,13 +61,15 @@ public class Parcour extends Module implements Listener{
 					loc.setYaw((float) this.getConfig().getConfigurationSection("checkpoints").getConfigurationSection("point" + i).getDouble("YAW"));
 					loc.setPitch((float) this.getConfig().getConfigurationSection("checkpoints").getConfigurationSection("point" + i).getDouble("PITCH"));
 					
+					checkpoints.add(loc);
+					
 				}else{
 					break;
 				}
 			}
 		}
 		
-		for(int i = 0; i < checkpoints.size(); i++){
+		for(int i = 0; i < users.size(); i++){
 			Location tmp = new Location(null, 0, 0, 0);
 			tmp.setWorld(checkpoints.get(i).getWorld());
 			tmp.setX(checkpoints.get(i).getX());
@@ -155,6 +157,9 @@ public class Parcour extends Module implements Listener{
 	@EventHandler
 	public void onMove(PlayerMoveEvent event){
 		
+		if(this.getPlugin().getModuleManager().getActualModule() == null)
+			return;
+		
 		if(this.isIngame()){
 		
 			if(started == false){
@@ -179,7 +184,8 @@ public class Parcour extends Module implements Listener{
 	@EventHandler
 	public void onDamage(EntityDamageEvent event){
 		
-	
+		if(this.getPlugin().getModuleManager().getActualModule() == null)
+			return;
 		
 		//Bukkit.broadcastMessage("Ingame: " + this.isIngame());
 		if(!(event.getEntity() instanceof Player))

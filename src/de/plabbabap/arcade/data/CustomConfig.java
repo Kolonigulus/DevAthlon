@@ -54,7 +54,9 @@ public class CustomConfig {
 			
 		} catch (UnsupportedEncodingException e) {
 			plugin.getLogger().log(Level.WARNING, "Fehler beim laden von " + name + "!");
-			e.printStackTrace();
+			//e.printStackTrace();
+		}catch(Exception e){
+			plugin.getLogger().log(Level.WARNING, "Fehler beim laden von " + name + "!");
 		}
 	    
 	}
