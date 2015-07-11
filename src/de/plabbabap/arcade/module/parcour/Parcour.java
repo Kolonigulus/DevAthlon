@@ -40,7 +40,7 @@ public class Parcour extends Module implements Listener{
 		users = new ArrayList<>();
 		in_game = false;
 		started = false;
-		seconds_left = 60;
+		seconds_left = 20;
 		
 		instance = this;
 		

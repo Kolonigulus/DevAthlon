@@ -200,7 +200,7 @@ public class ModuleManager {
 	}
 	
 	public Module getActualModule(){
-		if(index >= 0 && index < modules.size())
+		if(index >= 0)
 			return modules.get(index);
 		
 		return null;
