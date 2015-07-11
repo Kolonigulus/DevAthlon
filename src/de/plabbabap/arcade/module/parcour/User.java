@@ -37,21 +37,30 @@ public class User {
 		return player;
 	}
 	
+	public Location getCheckpoint(int index){
+		return checkpoints.get(index);
+	}
+	
 	public void respawn(){
 		player.teleport(checkpoints.get(last_checkpoint));
 	}
+	
+	
 	
 	public void onMove(Player p){
 		
 	
 		
 		if(p.getName().equalsIgnoreCase(player.getName())){
+			
+			parcour.updateScoreboard();
+			
 			if(last_checkpoint + 1 < checkpoints.size()){
 				
 				//Bukkit.broadcastMessage("onMove (User)");
 				if(p.getLocation().getX() >= checkpoints.get(last_checkpoint + 1).getX()){
 					last_checkpoint++;
-					player.sendMessage(ChatColor.translateAlternateColorCodes('&', parcour.getConfig().getString("reached_checkpoint").replace("%point%", last_checkpoint + "")));
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', parcour.getPlugin().getMessageConfig().getString("prefix") + " " + parcour.getConfig().getString("reached_checkpoint").replace("%point%", last_checkpoint + "")));
 				}
 			}
 		}

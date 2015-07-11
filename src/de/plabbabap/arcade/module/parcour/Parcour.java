@@ -3,12 +3,17 @@ package de.plabbabap.arcade.module.parcour;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 import de.plabbabap.arcade.Plugin;
 import de.plabbabap.arcade.module.Module;
@@ -22,6 +27,9 @@ public class Parcour extends Module implements Listener{
 	private ArrayList<Location> checkpoints;
 	private ArrayList<User> users;
 	private boolean in_game;
+	private Scoreboard board;
+	private Objective obj;
+	private int seconds_left;
 	
 	
 	public Parcour(Plugin plugin, ModuleManager modulemanager) {
@@ -31,6 +39,15 @@ public class Parcour extends Module implements Listener{
 		users = new ArrayList<>();
 		in_game = false;
 		started = false;
+		seconds_left = 300;
+		
+		
+		
+		
+		board = Bukkit.getScoreboardManager().getNewScoreboard();
+		obj = board.registerNewObjective("distance", "dummy");
+		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+		obj.setDisplayName(ChatColor.GREEN + "Distanz  " + ChatColor.WHITE + seconds_left + "");
 		
 	}
 	
@@ -70,15 +87,23 @@ public class Parcour extends Module implements Listener{
 		}
 		
 		for(int i = 0; i < users.size(); i++){
-			Location tmp = new Location(null, 0, 0, 0);
-			tmp.setWorld(checkpoints.get(i).getWorld());
-			tmp.setX(checkpoints.get(i).getX());
-			tmp.setY(checkpoints.get(i).getY());
-			tmp.setZ(checkpoints.get(i).getZ() + i * 28);
-			tmp.setYaw(checkpoints.get(i).getYaw());
-			tmp.setPitch(checkpoints.get(i).getPitch());
-			users.get(i).addPoint(tmp);
+			
+			for(Location c : checkpoints){
+			
+				Location tmp = new Location(null, 0, 0, 0);
+				tmp.setWorld(c.getWorld());
+				tmp.setX(c.getX());
+				tmp.setY(c.getY());
+				tmp.setZ(c.getZ() + i * 28);
+				tmp.setYaw(c.getYaw());
+				tmp.setPitch(c.getPitch());
+				users.get(i).addPoint(tmp);
+			
+			}
 		}
+		
+		
+		
 		
 		
 		
@@ -92,6 +117,17 @@ public class Parcour extends Module implements Listener{
 		
 	}
 	
+	
+	public void updateScoreboard(){
+		
+		for(User c : users){
+			obj.getScore(c.getPlayer()).setScore((int) (c.getPlayer().getLocation().getBlockX() - c.getCheckpoint(0).getX()));
+		}
+		
+		obj.setDisplayName(ChatColor.GREEN + "Distanz  " + ChatColor.WHITE + seconds_left + "");
+		
+	}
+	
 	@Override
 	public void start(){
 		
@@ -102,6 +138,16 @@ public class Parcour extends Module implements Listener{
 		}
 		in_game = true;
 		started = true;
+		
+		
+		for(User c : users){
+			c.getPlayer().setScoreboard(board);
+		}
+		
+		updateScoreboard();
+		EndTimer t = new EndTimer();
+		t.start();
+		
 		
 	}
 	
@@ -205,6 +251,41 @@ public class Parcour extends Module implements Listener{
 				this.getUser((Player) event.getEntity()).respawn();
 			}
 		}
+	}
+	
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent event){
+		if(this.getPlugin().getModuleManager().getActualModule().getName().equalsIgnoreCase(this.getName()) && (this.getPlugin().getModuleManager().isInLobby() == false)){
+			event.setCancelled(true);
+		}
+	}
+	
+	
+	
+	private class EndTimer extends Thread{
+		
+		public EndTimer(){
+			
+		}
+		
+		
+		@Override
+		public void run(){
+			while(true){
+				try {
+					this.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				seconds_left--;
+				updateScoreboard();
+				
+				if(seconds_left <= 0){
+					break;
+				}
+			}
+		}
+		
 	}
 
 }
