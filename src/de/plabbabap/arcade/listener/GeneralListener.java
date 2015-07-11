@@ -49,6 +49,7 @@ public class GeneralListener implements Listener{
 	@EventHandler
 	public void quit(PlayerQuitEvent event){
 		plugin.getModuleManager().leave(event.getPlayer());
+		event.setQuitMessage(null);
 	}
 	
 	
