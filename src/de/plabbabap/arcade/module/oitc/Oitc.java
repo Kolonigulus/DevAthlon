@@ -56,7 +56,7 @@ public class Oitc extends Module {
 		header.put("Deaths", new SQLType(SQLTypesEnum.INT));
 		try {
 			table = getPlugin().getSQLO().CreateTable(header,
-					this.getConfig().getString("MySQL.table"));
+					"oitc");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
