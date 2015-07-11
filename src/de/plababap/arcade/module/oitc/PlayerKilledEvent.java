@@ -6,6 +6,10 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
+/**
+ * @author Leonhard
+ *
+ */
 public class PlayerKilledEvent extends Event {
 	private HandlerList handlerlist;
 	private EntityDamageEvent cause;
