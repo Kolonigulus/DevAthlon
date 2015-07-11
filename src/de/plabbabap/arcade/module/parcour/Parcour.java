@@ -48,7 +48,7 @@ public class Parcour extends Module implements Listener{
 		}
 		
 		
-		Bukkit.broadcastMessage("Loading Checkpoints...");
+		
 		
 		if(this.getConfig().getConfigurationSection("checkpoints") != null){
 			for(int i = 0; i >= 0; i++){
@@ -159,6 +159,13 @@ public class Parcour extends Module implements Listener{
 		
 		if(this.getPlugin().getModuleManager().getActualModule() == null)
 			return;
+		
+		
+		if(this.getPlugin().getModuleManager().getActualModule().getName().equalsIgnoreCase(this.getName()) && (this.getPlugin().getModuleManager().isInLobby() == false)){
+			for(User c : users){
+				c.onMove(event.getPlayer());
+			}
+		}
 		
 		if(this.isIngame()){
 		

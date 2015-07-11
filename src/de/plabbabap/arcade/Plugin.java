@@ -38,11 +38,16 @@ public class Plugin extends JavaPlugin {
 		messages = new CustomConfig("messages.yml", this);
 		messages.saveConfig();
 
+		
+
+		
 		modulemanager = new ModuleManager(messages.getConfig(), this);
+		
+		parc = new Parcour(this, this.getModuleManager());
 
 		//modulemanager.registerModule(new Oitc(this, modulemanager));
 		modulemanager.registerModule(parc);
-		modulemanager.registerModule(new Oitc(this, modulemanager));
+		//modulemanager.registerModule(new Oitc(this, modulemanager));
 		 try {
 		 setUpSQL();
 

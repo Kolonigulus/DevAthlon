@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.md_5.bungee.api.ChatColor;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -41,8 +42,13 @@ public class User {
 	}
 	
 	public void onMove(Player p){
+		
+	
+		
 		if(p.getName().equalsIgnoreCase(player.getName())){
-			if(!(last_checkpoint + 1 != checkpoints.size())){
+			if(last_checkpoint + 1 < checkpoints.size()){
+				
+				//Bukkit.broadcastMessage("onMove (User)");
 				if(p.getLocation().getX() >= checkpoints.get(last_checkpoint + 1).getX()){
 					last_checkpoint++;
 					player.sendMessage(ChatColor.translateAlternateColorCodes('&', parcour.getConfig().getString("reached_checkpoint").replace("%point%", last_checkpoint + "")));
