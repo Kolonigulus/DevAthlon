@@ -1,6 +1,5 @@
 package de.plabbabap.arcade.module.oitc;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,7 +7,9 @@ import mainSSQL.SQLTable;
 import mainSSQL.types.SQLType;
 import mainSSQL.types.SQLTypesEnum;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import de.plabbabap.arcade.Plugin;
 import de.plabbabap.arcade.module.Module;
@@ -34,6 +35,9 @@ public class Oitc extends Module {
 		for(Player c : getPlugin().getModuleManager().getPlayers()){
 			kills.put(c, 0);
 			deaths.put(c, 0);
+			c.getInventory().setItem(0, new ItemStack(Material.WOOD_SWORD));
+			c.getInventory().setItem(1, new ItemStack(Material.BOW));
+			c.getInventory().setItem(5, new ItemStack(Material.ARROW));
 		}
 		}
 

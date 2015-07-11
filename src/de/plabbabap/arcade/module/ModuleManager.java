@@ -146,13 +146,28 @@ public class ModuleManager {
 		}
 		
 		this.broadcast(plugin.getMessageConfig().getString("prefix") + " " + plugin.getMessageConfig().getString("minigame_ended").replace("%game%", module.getName()));
-		StartTimer t = new StartTimer();
-		t.start();
+		
 		
 		for(Player c : players){
 			obj.getScore(c).setScore(points.get(c));
 			c.setScoreboard(board);
 		}
+		
+		
+		if(index >= modules.size() - 1){
+			broadcast(ChatColor.translateAlternateColorCodes('&', plugin.getMessageConfig().getString("prefix") + ChatColor.GREEN + " Das Spiel ist vorbei!"));
+			for(int i = 100; i == 0; i--){
+				for(Player p : players){
+					if(obj.getScore(p).getScore() == i){
+						broadcast(ChatColor.translateAlternateColorCodes('&', plugin.getMessageConfig().getString("prefix") + ChatColor.GOLD + " " + p.getName() + ChatColor.GREEN +  " hat gewonnen!"));
+					}
+				}
+			}
+			return;
+		}
+		
+		StartTimer t = new StartTimer();
+		t.start();
 	}
 	
 	public void endOfRound(){

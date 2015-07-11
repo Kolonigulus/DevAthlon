@@ -1,12 +1,9 @@
 package de.plabbabap.arcade.module.oitc;
 
-import java.sql.SQLException;
-
-import mainSSQL.TContent.SQLRow;
-import mainSSQL.TContent.fields.SQLField;
-import mainSSQL.TContent.fields.SQLValue;
+import java.util.Random;
 
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.EntityType;
@@ -16,7 +13,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -37,13 +33,23 @@ public class IngameOITCListener implements Listener {
 				&& (oitc.getPlugin().getModuleManager().isInLobby() == false)) {
 			if (event.getEntity() instanceof Player) {
 				Player player = (Player) event.getEntity();
-				if (((Damageable) player).getHealth() < event.getDamage()) {
+				if (player.getHealth() < event.getDamage()) {
 					oitc.getPlugin().getServer().getPluginManager()
 							.callEvent(new PlayerKilledEvent(event));
+					((Player) event.getEntity()).teleport(getRandomSpawn());
+					((Player) event.getEntity()).getInventory().setItem(0, new ItemStack(Material.WOOD_SWORD));
+					((Player) event.getEntity()).getInventory().setItem(1, new ItemStack(Material.BOW));
+					((Player) event.getEntity()).getInventory().setItem(5, new ItemStack(Material.ARROW));
 				}
 			}
 		}
 
+	}
+	
+	
+	public Location getRandomSpawn(){
+		Random rand = new Random();
+		return oitc.getSpawns().get(rand.nextInt(oitc.getSpawns().size() - 1));
 	}
 
 	@EventHandler
@@ -60,8 +66,9 @@ public class IngameOITCListener implements Listener {
 					.broadcast(
 							"&c"
 									+ ((Player) event.getCause().getEntity())
-											.getName() + "wurde von "
-									+ event.getKiller().getName() + "getötet");
+											.getName() + " wurde von "
+									+ event.getKiller().getName() + " getötet");
+			
 		} else if (!event.killedByPlayer()) {
 			oitc.getPlugin()
 					.getModuleManager()
@@ -72,9 +79,7 @@ public class IngameOITCListener implements Listener {
 		}
 		if (oitc.deaths.get(event.getCause().getEntity()).equals(
 				oitc.getConfig().get("maxDeaths"))) {
-			oitc.isOut.add((Player) event.getCause().getEntity());
-			((Player) event.getCause().getEntity())
-					.setGameMode(GameMode.SPECTATOR);
+			
 		}// Wenn der Spieler der den anderen getötet hat die benötigt Punktzahl
 			// erreicht wird das event geworfen
 		if (oitc.kills.get(event.getKiller()).equals(
@@ -101,7 +106,15 @@ public class IngameOITCListener implements Listener {
 				.equalsIgnoreCase(oitc.getName())
 				&& (oitc.getPlugin().getModuleManager().isInLobby() == false)) {
 			if (event.getDamager().getType().equals(EntityType.ARROW)) {
-				event.setDamage(50);
+				if(event.getEntity() instanceof Player){
+					Player player = (Player) event.getEntity();
+					player.setHealth(20);
+					player.getInventory().clear();
+					player.getInventory().setItem(0, new ItemStack(Material.WOOD_SWORD));
+					player.getInventory().setItem(1, new ItemStack(Material.BOW));
+					player.getInventory().setItem(5, new ItemStack(Material.ARROW));
+					player.teleport(this.getRandomSpawn());
+				}
 			}
 		}
 	}
@@ -112,6 +125,8 @@ public class IngameOITCListener implements Listener {
 				.broadcast(
 						event.getPlayer().getName()
 								+ " hat One in the Chamber gewonnen!");
+		
+		
 		
 		
 		oitc.getPlugin().getModuleManager().finish(oitc);

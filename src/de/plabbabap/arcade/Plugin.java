@@ -17,6 +17,7 @@ import de.plabbabap.arcade.data.CustomConfig;
 import de.plabbabap.arcade.listener.GeneralListener;
 import de.plabbabap.arcade.module.Module;
 import de.plabbabap.arcade.module.ModuleManager;
+import de.plabbabap.arcade.module.deathmatch.Deathmatch;
 import de.plabbabap.arcade.module.oitc.IngameOITCListener;
 import de.plabbabap.arcade.module.oitc.Oitc;
 import de.plabbabap.arcade.module.parcour.Parcour;
@@ -32,6 +33,7 @@ public class Plugin extends JavaPlugin {
 
 	GeneralListener elisten;
 	Parcour parc;
+	Deathmatch dm;
 	@Override
 	public void onEnable() {
 
@@ -45,12 +47,14 @@ public class Plugin extends JavaPlugin {
 		modulemanager = new ModuleManager(messages.getConfig(), this);
 		
 		parc = new Parcour(this, this.getModuleManager());
-		Oitc Oitc = new Oitc(this,modulemanager);
-		modulemanager.registerModule(Oitc);
+		dm = new Deathmatch(this, this.getModuleManager());
+	//	Oitc Oitc = new Oitc(this,modulemanager);
+		//modulemanager.registerModule(Oitc);
 		modulemanager.registerModule(parc);
+		modulemanager.registerModule(dm);
 		
-		getServer().getPluginManager()
-		.registerEvents(new IngameOITCListener(Oitc), this);
+		//getServer().getPluginManager()
+		//.registerEvents(new IngameOITCListener(Oitc), this);
 		//modulemanager.registerModule(new Oitc(this, modulemanager));
 		 try {
 		 setUpSQL();
@@ -173,6 +177,7 @@ public class Plugin extends JavaPlugin {
 		elisten = new GeneralListener(this);
 		this.getServer().getPluginManager().registerEvents(elisten, this);
 		this.getServer().getPluginManager().registerEvents(parc, this);
+		this.getServer().getPluginManager().registerEvents(dm, this);
 		getLogger()
 				.info("CommandListener und EventListener wurden hinzugefügt");
 	}
