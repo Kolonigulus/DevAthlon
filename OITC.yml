@@ -1,2 +1,3 @@
 maxDeaths: 5
 neededKills: 1
+MySQL.table: kills
