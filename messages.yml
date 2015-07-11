@@ -1,10 +1,10 @@
 prefix: '&8>>'
 allready_ingame: '&cDas Spiel hat bereits begonnen!'
 game_full: '&cDieses Spiel ist bereits voll!'
-player_join: '&9%player% hat das Spiel betreten (%online%/%max%)'
-player_leave: '&c%player% hat das Spiel verlassen (%online%/%max%)'
-game_starting_in: '&9Das Spiel startet in &7&l%sec% &r&9Sekunden!'
-points_added: '&aDu hast &6&l%points% &r&abekommen!'
-minigame_ended: '&9Das Minigame &7%game% &9ist zuende. Der beste Spieler war &7%player%.'
+player_join: '&6%player% &ahat das Spiel betreten &7(%online%/%max%)'
+player_leave: '&c%player% &ahat das Spiel verlassen &7(%online%/%max%)'
+game_starting_in: '&aDas Spiel startet in &6&l%sec% &r&aSekunden!'
+points_added: '&aDu hast &6&l%points% &r&a Punkte bekommen!'
+minigame_ended: '&aDas Minigame &6&l%game% &r&aist zuende.'
 
 
