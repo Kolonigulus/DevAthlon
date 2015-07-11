@@ -29,18 +29,22 @@ public class Plugin extends JavaPlugin {
 	CustomConfig messages;
 
 	GeneralListener elisten;
+	
+	Parcour parc;
 
 	@Override
 	public void onEnable() {
 
 		this.saveDefaultConfig();
+		
+		parc = new Parcour(this, this.getModuleManager());
 		messages = new CustomConfig("messages.yml", this);
 		messages.saveConfig();
 
 		modulemanager = new ModuleManager(messages.getConfig(), this);
 
 		//modulemanager.registerModule(new Oitc(this, modulemanager));
-		modulemanager.registerModule(new Parcour(this, this.getModuleManager()));
+		modulemanager.registerModule(parc);
 
 		// try {
 		// setUpSQL();
@@ -159,7 +163,7 @@ public class Plugin extends JavaPlugin {
 	private void registerEvents() {
 		elisten = new GeneralListener(this);
 		this.getServer().getPluginManager().registerEvents(elisten, this);
-		this.getServer().getPluginManager().registerEvents(new Parcour(this, this.getModuleManager()), this);
+		this.getServer().getPluginManager().registerEvents(parc, this);
 		getLogger()
 				.info("CommandListener und EventListener wurden hinzugefügt");
 	}

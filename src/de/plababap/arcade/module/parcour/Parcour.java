@@ -167,11 +167,9 @@ public class Parcour extends Module implements Listener{
 			
 		}
 		
-		Bukkit.broadcastMessage("started: " + started);
-		Bukkit.broadcastMessage("Ingame: " + this.isIngame());
-		Bukkit.broadcastMessage("in_game: " + in_game);
 		
-		if(in_game){
+		
+		if(this.getPlugin().getModuleManager().getActualModule().getName().equalsIgnoreCase(this.getName()) && (this.getPlugin().getModuleManager().isInLobby() == false)){
 			if(event.getPlayer().getLocation().getY() < 10){
 				this.getUser(event.getPlayer()).respawn();
 			}
@@ -179,16 +177,15 @@ public class Parcour extends Module implements Listener{
 	}
 	
 	@EventHandler
-	public void onDamager(EntityDamageEvent event){
+	public void onDamage(EntityDamageEvent event){
 		
-		Bukkit.broadcastMessage("started: " + started);
-		Bukkit.broadcastMessage("Ingame: " + this.isIngame());
+	
 		
 		//Bukkit.broadcastMessage("Ingame: " + this.isIngame());
 		if(!(event.getEntity() instanceof Player))
 			return;
 			
-		if(in_game){
+		if(this.getPlugin().getModuleManager().getActualModule().getName().equalsIgnoreCase(this.getName()) && (this.getPlugin().getModuleManager().isInLobby() == false)){
 			event.setCancelled(true);
 			
 			if(event.getEntity().getLocation().getY() < 10){
