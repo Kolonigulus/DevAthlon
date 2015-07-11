@@ -48,7 +48,10 @@ public class Plugin extends JavaPlugin {
 
 		 } catch (ClassNotFoundException | SQLException e) {
 		 
-		 e.printStackTrace();
+			 	getLogger().info("Verbindung konnte nicht aufgebaut werden:");
+				getLogger().info("SQLException: " + e.getMessage());
+				getLogger().info("SQLState: " + ((SQLException) e).getSQLState());
+				getLogger().info("VendorError: " + ((SQLException) e).getErrorCode());
 		 }
 		registerEvents();
 
