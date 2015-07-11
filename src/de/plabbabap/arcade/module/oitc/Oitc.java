@@ -31,8 +31,6 @@ public class Oitc extends Module {
 
 	@Override
 	public void start() {
-		this.getPlugin().getServer().getPluginManager()
-				.registerEvents(new IngameOITCListener(this), this.getPlugin());
 		for(Player c : getPlugin().getModuleManager().getPlayers()){
 			kills.put(c, 0);
 			deaths.put(c, 0);

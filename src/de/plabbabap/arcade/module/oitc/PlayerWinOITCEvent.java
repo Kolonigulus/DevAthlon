@@ -16,6 +16,9 @@ private static final HandlerList handlers = new HandlerList();
 		// TODO Auto-generated method stub
 		return handlers;
 	}
+	public static HandlerList getHandlerList() {
+	    return handlers;
+	}
 	public PlayerWinOITCEvent(Oitc oitc, Player player){
 		this.player = player;
 	}
