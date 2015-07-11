@@ -15,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import de.plababap.arcade.module.Module;
 import de.plababap.arcade.module.ModuleManager;
+import de.plababap.arcade.module.oitc.Oitc;
 import de.plababap.arcade.module.parcour.Parcour;
 import de.plabbabap.arcade.data.CustomConfig;
 import de.plabbabap.arcade.listener.GeneralListener;
@@ -40,15 +41,15 @@ public class Plugin extends JavaPlugin {
 		modulemanager = new ModuleManager(messages.getConfig(), this);
 
 		//modulemanager.registerModule(new Oitc(this, modulemanager));
-		modulemanager.registerModule(new Parcour(this, this.getModuleManager()));
+	//	modulemanager.registerModule(new Parcour(this, this.getModuleManager()));
+		modulemanager.registerModule(new Oitc(this, modulemanager));
+		 try {
+		 setUpSQL();
 
-		// try {
-		// setUpSQL();
-
-		// } catch (ClassNotFoundException | SQLException e) {
-		// TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
+		 } catch (ClassNotFoundException | SQLException e) {
+		 
+		 e.printStackTrace();
+		 }
 		registerEvents();
 
 	}
@@ -112,7 +113,7 @@ public class Plugin extends JavaPlugin {
 			}
 		}
 		
-		if(cmd.getName().equalsIgnoreCase("checkpoint")){
+	/*	if(cmd.getName().equalsIgnoreCase("checkpoint")){
 			if (!sender.isOp()) {
 				sender.sendMessage(ChatColor.RED + "Das darfst du nicht!");
 				return true;
@@ -131,7 +132,7 @@ public class Plugin extends JavaPlugin {
 					
 				}
 			}
-		}
+		}*/
 
 		return true;
 	}
@@ -159,7 +160,7 @@ public class Plugin extends JavaPlugin {
 	private void registerEvents() {
 		elisten = new GeneralListener(this);
 		this.getServer().getPluginManager().registerEvents(elisten, this);
-		this.getServer().getPluginManager().registerEvents(new Parcour(this, this.getModuleManager()), this);
+//		this.getServer().getPluginManager().registerEvents(new Parcour(this, this.getModuleManager()), this);
 		getLogger()
 				.info("CommandListener und EventListener wurden hinzugefügt");
 	}
