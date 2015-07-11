@@ -3,10 +3,7 @@ package de.plabbabap.arcade.module.digcube;
 import java.util.HashMap;
 import java.util.Random;
 
-import net.minecraft.server.v1_8_R2.Scoreboard;
-
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -18,11 +15,9 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
-
 import de.plabbabap.arcade.Plugin;
 import de.plabbabap.arcade.module.Module;
 import de.plabbabap.arcade.module.ModuleManager;
-import de.plabbabap.arcade.module.parcour.User;
 
 public class DigCube extends Module {
 private HashMap<Player, Integer> dias;

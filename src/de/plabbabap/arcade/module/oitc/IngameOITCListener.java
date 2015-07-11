@@ -112,41 +112,9 @@ public class IngameOITCListener implements Listener {
 				.broadcast(
 						event.getPlayer().getName()
 								+ " hat One in the Chamber gewonnen!");
-		// TODO Punkte vergeben
-		try {
-			for (Player c : oitc.getPlugin().getModuleManager().getPlayers()) {
-				if (oitc.table.getRowsByValue(oitc.table.getColumn("UUID"),
-						c.getUniqueId().toString()).size() == 0) {
-					String[] data = new String[4];
-					data[0] = c.getUniqueId().toString();
-					if (c.getUniqueId().equals(event.getPlayer())) {
-						data[1] = "1";
-					} else {
-						data[1] = "0";
-					}
-					data[2] = oitc.kills.get(c).toString();
-					data[3] = oitc.deaths.get(c).toString();
-				} else {
-					SQLRow row = oitc.table.getRowsByValue(
-							oitc.table.getColumn("UUID"),
-							c.getUniqueId().toString()).get(0);
-					SQLField field = row.getField(oitc.table.getColumn("Wins"));
-					field.setValue(new SQLValue(
-							field.getValue().getInteger() + 1));
-					field = row.getField(oitc.table.getColumn("Kills"));
-					field.setValue(new SQLValue(field.getValue().getInteger()
-							+ oitc.kills.get(c)));
-					field = row.getField(oitc.table.getColumn("Deaths"));
-					field.setValue(new SQLValue(field.getValue().getInteger()
-							+ oitc.deaths.get(c)));
-				}
-
+		
+		
+		oitc.getPlugin().getModuleManager().finish(oitc);
 			}
-
-			oitc.getPlugin().getModuleManager().finish(oitc);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			
 	}
-}
