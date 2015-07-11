@@ -30,6 +30,7 @@ public class Parcour extends Module implements Listener{
 	private Scoreboard board;
 	private Objective obj;
 	private int seconds_left;
+	private Parcour instance;
 	
 	
 	public Parcour(Plugin plugin, ModuleManager modulemanager) {
@@ -39,7 +40,9 @@ public class Parcour extends Module implements Listener{
 		users = new ArrayList<>();
 		in_game = false;
 		started = false;
-		seconds_left = 300;
+		seconds_left = 20;
+		
+		instance = this;
 		
 		
 		
@@ -284,15 +287,20 @@ public class Parcour extends Module implements Listener{
 					break;
 				}
 				
-				for(User c : users){
-					c.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', getPlugin().getMessageConfig().getString("prefix") + " " + getPlugin().getMessageConfig().getString("points_added").replace("%points%", (obj.getScore(c.getPlayer()).getScore() / 10) + "")));
-					getPlugin().getModuleManager().addPoints(c.getPlayer(), (obj.getScore(c.getPlayer()).getScore() / 10));
-				}
 			}
 			
+			for(User c : users){
+				getPlugin().getModuleManager().addPoints(c.getPlayer(), (obj.getScore(c.getPlayer()).getScore() / 10));
+			}
 			
-		}
+			getPlugin().getModuleManager().finish(instance);
+			
 		
+		
+		}
 	}
+		
+		
+	
 
 }

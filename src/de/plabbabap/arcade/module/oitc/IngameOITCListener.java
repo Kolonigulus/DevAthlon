@@ -113,7 +113,7 @@ public class IngameOITCListener implements Listener {
 				
 			}
 			
-			oitc.getPlugin().getModuleManager().finish(event.getPlayer(), oitc);
+			oitc.getPlugin().getModuleManager().finish( oitc);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

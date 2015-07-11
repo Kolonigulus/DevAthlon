@@ -8,6 +8,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 import de.plabbabap.arcade.Plugin;
 
@@ -29,6 +32,9 @@ public class ModuleManager {
 	private boolean game_started;
 	private int max_players;
 	
+	private Scoreboard board;
+	private Objective obj;
+	
 	private Configuration cfg;
 	
 	private Plugin plugin;
@@ -46,6 +52,11 @@ public class ModuleManager {
 		game_starting = false;
 		game_started = false;
 		max_players = this.plugin.getConfig().getInt("max_player");		
+		
+		board = Bukkit.getScoreboardManager().getNewScoreboard();
+		obj = board.registerNewObjective("points", "dummy");
+		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+		obj.setDisplayName(ChatColor.RED + "Punkte");
 		
 		points = new HashMap<>();
 		
@@ -115,7 +126,7 @@ public class ModuleManager {
 	}
 	
 	
-	public void finish(Player winner, Module module){
+	public void finish(Module module){
 		
 		lobby = true;
 		
@@ -134,9 +145,14 @@ public class ModuleManager {
 			c.setExp(0);
 		}
 		
-		this.broadcast(plugin.getMessageConfig().getString("prefix") + " " + plugin.getMessageConfig().getString("minigame_ended").replace("%game%", module.getName()).replace("%player%", winner.getName()));
+		this.broadcast(plugin.getMessageConfig().getString("prefix") + " " + plugin.getMessageConfig().getString("minigame_ended").replace("%game%", module.getName()));
 		StartTimer t = new StartTimer();
 		t.start();
+		
+		for(Player c : players){
+			obj.getScore(c).setScore(points.get(c));
+			c.setScoreboard(board);
+		}
 	}
 	
 	public void endOfRound(){
@@ -153,6 +169,7 @@ public class ModuleManager {
 	
 	public void addPoints(Player p, int points){
 		this.points.put(p, (this.points.get(p) + points));
+		p.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getMessageConfig().getString("prefix") + " " + plugin.getMessageConfig().getString("points_added").replace("%points%", points + "")));
 	}
 	
 	
@@ -164,7 +181,7 @@ public class ModuleManager {
 		}else{
 			players.add(p);
 			broadcast(ChatColor.translateAlternateColorCodes('&', cfg.getString("prefix") + " " + cfg.getString("player_join").replace("%player%", p.getName()).replace("%online%", ""+players.size()).replace("%max%", ""+max_players)));
-
+			points.put(p, 0);
 		}
 		
 		
