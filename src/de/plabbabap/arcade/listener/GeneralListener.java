@@ -44,7 +44,6 @@ public class GeneralListener implements Listener{
 		event.getPlayer().setHealth(20);
 		event.getPlayer().setFoodLevel(20);
 		event.getPlayer().getInventory().clear();
-		plugin.getModuleManager().join(event.getPlayer());
 	}
 	
 	@EventHandler

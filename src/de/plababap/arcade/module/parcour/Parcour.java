@@ -1,9 +1,8 @@
 package de.plababap.arcade.module.parcour;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,18 +17,19 @@ import de.plabbabap.arcade.Plugin;
 public class Parcour extends Module implements Listener{
 
 	
-	private HashMap<Integer, Location> checkpoints;
-	private HashMap<Player, Integer> playerpoints;
-	private HashMap<Player, Double> ydistance;
+	
 	private boolean started;
+	private ArrayList<Location> checkpoints;
+	private ArrayList<User> users;
+	private boolean in_game;
 	
 	
 	public Parcour(Plugin plugin, ModuleManager modulemanager) {
 		super(plugin, modulemanager, "Parcour");
 		
-		checkpoints = new HashMap<>();
-		playerpoints = new HashMap<>();
-		ydistance = new HashMap<>();
+		checkpoints = new ArrayList<>();
+		users = new ArrayList<>();
+		in_game = false;
 		started = false;
 		
 	}
@@ -40,6 +40,13 @@ public class Parcour extends Module implements Listener{
 	
 	@Override
 	public void setup(){
+		
+		
+		for(Player p : this.getPlugin().getModuleManager().getPlayers()){
+			users.add(new User(p, this));
+			this.getUser(p).addPoint(p.getLocation());
+		}
+		
 		
 		Bukkit.broadcastMessage("Loading Checkpoints...");
 		
@@ -53,21 +60,29 @@ public class Parcour extends Module implements Listener{
 					loc.setZ(this.getConfig().getConfigurationSection("checkpoints").getConfigurationSection("point" + i).getDouble("Z"));
 					loc.setYaw((float) this.getConfig().getConfigurationSection("checkpoints").getConfigurationSection("point" + i).getDouble("YAW"));
 					loc.setPitch((float) this.getConfig().getConfigurationSection("checkpoints").getConfigurationSection("point" + i).getDouble("PITCH"));
-					checkpoints.put(i + 1, loc);
+					
 				}else{
 					break;
 				}
 			}
 		}
 		
-		
-		
-		checkpoints.put(0, this.getPlugin().getModuleManager().getPlayers().get(0).getLocation());
-		
-		for(Player c : this.getPlugin().getModuleManager().getPlayers()){
-			playerpoints.put(c, 0);
-			ydistance.put(c, checkpoints.get(0).getZ());
+		for(int i = 0; i < checkpoints.size(); i++){
+			Location tmp = new Location(null, 0, 0, 0);
+			tmp.setWorld(checkpoints.get(i).getWorld());
+			tmp.setX(checkpoints.get(i).getX());
+			tmp.setY(checkpoints.get(i).getY());
+			tmp.setZ(checkpoints.get(i).getZ() + i * 28);
+			tmp.setYaw(checkpoints.get(i).getYaw());
+			tmp.setPitch(checkpoints.get(i).getPitch());
+			users.get(i).addPoint(tmp);
 		}
+		
+		
+		
+		
+		
+		
 		
 		//started = true;
 		
@@ -75,9 +90,22 @@ public class Parcour extends Module implements Listener{
 		
 	}
 	
+	@Override
+	public void start(){
+		
+		Bukkit.broadcastMessage("Starting the game...");
+		
+		for(User c : users){
+			c.respawn();
+		}
+		in_game = true;
+		started = true;
+		
+	}
+	
 	public void addCheckPoint(Location loc){
 		
-		checkpoints.put(checkpoints.size(), loc);
+		
 		
 		if(this.getConfig().getConfigurationSection("checkpoints") == null)
 			this.getConfig().createSection("checkpoints");
@@ -102,49 +130,23 @@ public class Parcour extends Module implements Listener{
 		
 		
 		
+		
+		
 	}
 	
-	
-	@Override
-	public void start(){
-		
-		Bukkit.broadcastMessage("Starting the game...");
-		
-		for(int i = 0; i < this.getPlugin().getModuleManager().getPlayers().size(); i++){
-			Location tmp = new Location(null, 0, 0, 0);
-			tmp.setWorld(checkpoints.get(playerpoints.get(this.getPlugin().getModuleManager().getPlayers().get(i))).getWorld());
-			tmp.setX(checkpoints.get(playerpoints.get(this.getPlugin().getModuleManager().getPlayers().get(i))).getX());
-			tmp.setY(checkpoints.get(playerpoints.get(this.getPlugin().getModuleManager().getPlayers().get(i))).getY());
-			tmp.setZ(checkpoints.get(playerpoints.get(this.getPlugin().getModuleManager().getPlayers().get(i))).getZ() + i * 28);
-			tmp.setYaw(checkpoints.get(playerpoints.get(this.getPlugin().getModuleManager().getPlayers().get(i))).getYaw());
-			tmp.setPitch(checkpoints.get(playerpoints.get(this.getPlugin().getModuleManager().getPlayers().get(i))).getPitch());
-			
-			this.getPlugin().getModuleManager().getPlayers().get(i).teleport(tmp);
-			
-			ydistance.put(this.getPlugin().getModuleManager().getPlayers().get(i), (double) (i * 28));
+	public User getUser(Player p){
+		for(User c : users){
+			if(c.getPlayer().getName().equalsIgnoreCase(p.getName())){
+				return c;
+			}
 		}
 		
-		started = true;
-		this.setIngame(true);
-		
+		return null;
 	}
 	
-	public void respawn(Player p){
-		
-		
-		Location tmp = new Location(null, 0, 0, 0);
-		tmp.setWorld(checkpoints.get(playerpoints.get(p)).getWorld());
-		tmp.setX(checkpoints.get(playerpoints.get(p)).getX());
-		tmp.setY(checkpoints.get(playerpoints.get(p)).getY());
-		tmp.setZ(checkpoints.get(playerpoints.get(p)).getZ() + ydistance.get(p));
-		tmp.setYaw(checkpoints.get(playerpoints.get(p)).getYaw());
-		tmp.setPitch(checkpoints.get(playerpoints.get(p)).getPitch());
-		
-		p.teleport(tmp);
-		
-		
-		
-	}
+	
+	
+	
 	
 	
 	
@@ -153,20 +155,25 @@ public class Parcour extends Module implements Listener{
 	@EventHandler
 	public void onMove(PlayerMoveEvent event){
 		
-		if(this.getPlugin().getModuleManager().getActualModule().getName().equalsIgnoreCase(this.getName()) && this.getPlugin().getModuleManager().isInLobby() == false){
+		if(this.isIngame()){
 		
 			if(started == false){
 				event.setCancelled(true);
 				return;
 			}
 		
-			if(event.getPlayer().getLocation().getY() < 10){
-				this.respawn(event.getPlayer());
-			}
+			
 		
-			if(event.getPlayer().getLocation().getX() > checkpoints.get(playerpoints.get(event.getPlayer()) + 1).getX()){
-				playerpoints.put(event.getPlayer(), playerpoints.get(event.getPlayer()) + 1);
-				event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', this.getPlugin().getConfig().getString("prefix") + " " + this.getConfig().getString("checkpoint_reched").replace("%point%", "" + playerpoints.get(event.getPlayer()))));
+			
+		}
+		
+		Bukkit.broadcastMessage("started: " + started);
+		Bukkit.broadcastMessage("Ingame: " + this.isIngame());
+		Bukkit.broadcastMessage("in_game: " + in_game);
+		
+		if(in_game){
+			if(event.getPlayer().getLocation().getY() < 10){
+				this.getUser(event.getPlayer()).respawn();
 			}
 		}
 	}
@@ -174,14 +181,18 @@ public class Parcour extends Module implements Listener{
 	@EventHandler
 	public void onDamager(EntityDamageEvent event){
 		
-		//Bukkit.broadcastMessage("Ingame: " + this.isIngame());
+		Bukkit.broadcastMessage("started: " + started);
+		Bukkit.broadcastMessage("Ingame: " + this.isIngame());
 		
+		//Bukkit.broadcastMessage("Ingame: " + this.isIngame());
+		if(!(event.getEntity() instanceof Player))
+			return;
 			
-		if(this.getPlugin().getModuleManager().getActualModule().getName().equalsIgnoreCase(this.getName()) && this.getPlugin().getModuleManager().isInLobby() == false){
+		if(in_game){
 			event.setCancelled(true);
 			
 			if(event.getEntity().getLocation().getY() < 10){
-				this.respawn((Player) event.getEntity());
+				this.getUser((Player) event.getEntity()).respawn();
 			}
 		}
 	}

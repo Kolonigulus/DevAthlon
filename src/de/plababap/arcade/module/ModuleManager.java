@@ -100,6 +100,7 @@ public class ModuleManager {
 			modules.get(index).teleport();
 			modules.get(index).setup();
 			modules.get(index).setIngame(true);
+			Bukkit.broadcastMessage("[ModuleManager] Inageme: " + modules.get(index).isIngame());
 			modules.get(index).start();
 			
 			lobby = false;
