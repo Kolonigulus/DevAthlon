@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
  *
  */
 public class PlayerKilledEvent extends Event {
-	private HandlerList handlerlist;
+	private static final HandlerList handlers = new HandlerList();
 	private EntityDamageEvent cause;
 	private boolean killedByPlayer;
 	private Player killer;
@@ -19,7 +19,7 @@ public class PlayerKilledEvent extends Event {
 	@Override
 	public HandlerList getHandlers() {
 		// TODO Auto-generated method stub
-		return handlerlist;
+		return handlers;
 	}
 
 	public PlayerKilledEvent(EntityDamageEvent event) {

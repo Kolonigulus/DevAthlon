@@ -10,10 +10,11 @@ import org.bukkit.event.HandlerList;
  */
 public class PlayerWinOITCEvent extends Event {
 private Player player;
+private static final HandlerList handlers = new HandlerList();
 	@Override
 	public HandlerList getHandlers() {
 		// TODO Auto-generated method stub
-		return null;
+		return handlers;
 	}
 	public PlayerWinOITCEvent(Oitc oitc, Player player){
 		this.player = player;
