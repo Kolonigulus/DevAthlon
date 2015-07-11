@@ -7,6 +7,7 @@ import mainSSQL.TContent.fields.SQLField;
 import mainSSQL.TContent.fields.SQLValue;
 
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -16,6 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * @author Leonhard
@@ -60,6 +62,14 @@ public class IngameOITCListener implements Listener {
 				oitc.getConfig().get("neededKills"))) {
 			oitc.getPlugin().getServer().getPluginManager()
 					.callEvent(new PlayerWinOITCEvent(oitc, event.getKiller()));
+		}
+		if(event.killedByPlayer()){
+			int arrowcount = 1;
+			if(event.getKiller().getInventory().getItem(5).getAmount() > 0){
+				event.getKiller().getInventory().setItem(5, new ItemStack(Material.ARROW, 2));
+			}else{
+			event.getKiller().getInventory().setItem(5, new ItemStack(Material.ARROW, 1));
+			}
 		}
 	}
 
