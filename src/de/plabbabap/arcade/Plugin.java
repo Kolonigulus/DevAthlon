@@ -13,10 +13,10 @@ import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import de.plababbap.arcade.module.Module;
-import de.plababbap.arcade.module.ModuleManager;
 import de.plabbabap.arcade.data.CustomConfig;
 import de.plabbabap.arcade.listener.GeneralListener;
+import de.plabbabap.arcade.module.Module;
+import de.plabbabap.arcade.module.ModuleManager;
 import de.plabbabap.arcade.module.oitc.Oitc;
 import de.plabbabap.arcade.module.parcour.Parcour;
 

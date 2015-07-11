@@ -10,9 +10,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import de.plababbap.arcade.module.Module;
-import de.plababbap.arcade.module.ModuleManager;
 import de.plabbabap.arcade.Plugin;
+import de.plabbabap.arcade.module.Module;
+import de.plabbabap.arcade.module.ModuleManager;
 
 public class Parcour extends Module implements Listener{
 

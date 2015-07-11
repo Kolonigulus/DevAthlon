@@ -10,9 +10,9 @@ import mainSSQL.types.SQLTypesEnum;
 
 import org.bukkit.entity.Player;
 
-import de.plababbap.arcade.module.Module;
-import de.plababbap.arcade.module.ModuleManager;
 import de.plabbabap.arcade.Plugin;
+import de.plabbabap.arcade.module.Module;
+import de.plabbabap.arcade.module.ModuleManager;
 
 /**
  * @author Leonhard
@@ -41,7 +41,7 @@ public class Oitc extends Module {
 
 	/**
 	 * @author Leonhard
-	 * @see de.plababbap.arcade.module.Module#setup()
+	 * @see de.plabbabap.arcade.module.Module#setup()
 	 */
 	@Override
 	public void setup() {
