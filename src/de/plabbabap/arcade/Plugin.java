@@ -17,6 +17,7 @@ import de.plabbabap.arcade.data.CustomConfig;
 import de.plabbabap.arcade.listener.GeneralListener;
 import de.plabbabap.arcade.module.Module;
 import de.plabbabap.arcade.module.ModuleManager;
+import de.plabbabap.arcade.module.oitc.IngameOITCListener;
 import de.plabbabap.arcade.module.oitc.Oitc;
 import de.plabbabap.arcade.module.parcour.Parcour;
 
@@ -44,9 +45,12 @@ public class Plugin extends JavaPlugin {
 		modulemanager = new ModuleManager(messages.getConfig(), this);
 		
 		parc = new Parcour(this, this.getModuleManager());
-
-		modulemanager.registerModule(new Oitc(this, modulemanager));
+		Oitc Oitc = new Oitc(this,modulemanager);
+		modulemanager.registerModule(Oitc);
 		modulemanager.registerModule(parc);
+		
+		getServer().getPluginManager()
+		.registerEvents(new IngameOITCListener(Oitc), this);
 		//modulemanager.registerModule(new Oitc(this, modulemanager));
 		 try {
 		 setUpSQL();
