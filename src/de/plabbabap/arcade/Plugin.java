@@ -30,7 +30,7 @@ public class Plugin extends JavaPlugin {
 	CustomConfig messages;
 
 	GeneralListener elisten;
-
+	Parcour parc;
 	@Override
 	public void onEnable() {
 
@@ -41,7 +41,7 @@ public class Plugin extends JavaPlugin {
 		modulemanager = new ModuleManager(messages.getConfig(), this);
 
 		//modulemanager.registerModule(new Oitc(this, modulemanager));
-	//	modulemanager.registerModule(new Parcour(this, this.getModuleManager()));
+		modulemanager.registerModule(parc);
 		modulemanager.registerModule(new Oitc(this, modulemanager));
 		 try {
 		 setUpSQL();
@@ -113,7 +113,7 @@ public class Plugin extends JavaPlugin {
 			}
 		}
 		
-	/*	if(cmd.getName().equalsIgnoreCase("checkpoint")){
+	if(cmd.getName().equalsIgnoreCase("checkpoint")){
 			if (!sender.isOp()) {
 				sender.sendMessage(ChatColor.RED + "Das darfst du nicht!");
 				return true;
@@ -132,7 +132,7 @@ public class Plugin extends JavaPlugin {
 					
 				}
 			}
-		}*/
+		}
 
 		return true;
 	}
@@ -160,7 +160,7 @@ public class Plugin extends JavaPlugin {
 	private void registerEvents() {
 		elisten = new GeneralListener(this);
 		this.getServer().getPluginManager().registerEvents(elisten, this);
-//		this.getServer().getPluginManager().registerEvents(new Parcour(this, this.getModuleManager()), this);
+		this.getServer().getPluginManager().registerEvents(parc, this);
 		getLogger()
 				.info("CommandListener und EventListener wurden hinzugefügt");
 	}
