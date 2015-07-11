@@ -159,5 +159,9 @@ public class Module {
 		return plugin;
 	}
 	
+	public ArrayList<Location> getSpawns(){
+		return spawns;
+	}
+	
 	
 }

@@ -283,7 +283,14 @@ public class Parcour extends Module implements Listener{
 				if(seconds_left <= 0){
 					break;
 				}
+				
+				for(User c : users){
+					c.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', getPlugin().getMessageConfig().getString("prefix") + " " + getPlugin().getMessageConfig().getString("points_added").replace("%points%", (obj.getScore(c.getPlayer()).getScore() / 10) + "")));
+					getPlugin().getModuleManager().addPoints(c.getPlayer(), (obj.getScore(c.getPlayer()).getScore() / 10));
+				}
 			}
+			
+			
 		}
 		
 	}

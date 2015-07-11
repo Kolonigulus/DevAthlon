@@ -151,6 +151,10 @@ public class ModuleManager {
 		this.points.put(p, points);
 	}
 	
+	public void addPoints(Player p, int points){
+		this.points.put(p, (this.points.get(p) + points));
+	}
+	
 	
 	public boolean join(Player p){
 		
@@ -221,6 +225,8 @@ public class ModuleManager {
 	public boolean isInLobby(){
 		return lobby;
 	}
+	
+	
 	
 	
 	
