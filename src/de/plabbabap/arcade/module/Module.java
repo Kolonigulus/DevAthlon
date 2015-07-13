@@ -11,7 +11,7 @@ import org.bukkit.event.Listener;
 import de.plabbabap.arcade.Plugin;
 import de.plabbabap.arcade.data.CustomConfig;
 
-public class Module {
+public class Module implements Listener{
 
 	// Autor: Leo (Zortax)
 	

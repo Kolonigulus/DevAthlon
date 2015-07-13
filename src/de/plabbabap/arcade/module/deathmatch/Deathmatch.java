@@ -18,7 +18,7 @@ import de.plabbabap.arcade.Plugin;
 import de.plabbabap.arcade.module.Module;
 import de.plabbabap.arcade.module.ModuleManager;
 
-public class Deathmatch extends Module implements Listener {
+public class Deathmatch extends Module {
 	
 	private ArrayList<Player> alive;
 	private HashMap<Player, Integer> kills;

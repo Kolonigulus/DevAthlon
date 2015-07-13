@@ -19,7 +19,7 @@ import de.plabbabap.arcade.Plugin;
 import de.plabbabap.arcade.module.Module;
 import de.plabbabap.arcade.module.ModuleManager;
 
-public class Parcour extends Module implements Listener{
+public class Parcour extends Module {
 
 	
 	
