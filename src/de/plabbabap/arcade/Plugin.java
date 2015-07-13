@@ -11,6 +11,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import de.plabbabap.arcade.data.CustomConfig;
@@ -18,6 +19,7 @@ import de.plabbabap.arcade.listener.GeneralListener;
 import de.plabbabap.arcade.module.Module;
 import de.plabbabap.arcade.module.ModuleManager;
 import de.plabbabap.arcade.module.deathmatch.Deathmatch;
+import de.plabbabap.arcade.module.digcube.DigCube;
 import de.plabbabap.arcade.module.oitc.IngameOITCListener;
 import de.plabbabap.arcade.module.oitc.Oitc;
 import de.plabbabap.arcade.module.parcour.Parcour;
@@ -32,6 +34,7 @@ public class Plugin extends JavaPlugin {
 	CustomConfig messages;
 
 	GeneralListener elisten;
+	DigCube dc;
 	Parcour parc;
 	Deathmatch dm;
 	@Override
@@ -45,11 +48,12 @@ public class Plugin extends JavaPlugin {
 
 		
 		modulemanager = new ModuleManager(messages.getConfig(), this);
-		
+		dc = new DigCube(this, modulemanager);
 		parc = new Parcour(this, this.getModuleManager());
 		dm = new Deathmatch(this, this.getModuleManager());
 	//	Oitc Oitc = new Oitc(this,modulemanager);
 		//modulemanager.registerModule(Oitc);
+		modulemanager.registerModule(dc);
 		modulemanager.registerModule(parc);
 		modulemanager.registerModule(dm);
 		
@@ -176,8 +180,9 @@ public class Plugin extends JavaPlugin {
 	private void registerEvents() {
 		elisten = new GeneralListener(this);
 		this.getServer().getPluginManager().registerEvents(elisten, this);
-		this.getServer().getPluginManager().registerEvents(parc, this);
-		this.getServer().getPluginManager().registerEvents(dm, this);
+		for(Module c : modulemanager.getModules()){
+			this.getServer().getPluginManager().registerEvents((Listener) c, this);
+		}
 		getLogger()
 				.info("CommandListener und EventListener wurden hinzugefügt");
 	}
