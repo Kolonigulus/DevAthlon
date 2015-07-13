@@ -24,7 +24,6 @@ private HashMap<Player, Integer> dias;
 public int seconds_left;
 private Objective  obj;
 private org.bukkit.scoreboard.Scoreboard scoreboard;
-private Objective objt;
 	public DigCube(Plugin plugin, ModuleManager modulemanager) {
 		super(plugin, modulemanager, "digcube");
 
@@ -39,6 +38,10 @@ private Objective objt;
 			dias.put(c, 0);
 		}
 		seconds_left = getConfig().getInt("time");
+		scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+		obj = scoreboard.registerNewObjective("dias", "dummy");
+		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+		obj.setDisplayName("Zeit übrig: "  + seconds_left);
 	}
 
 	private void generateCube(Location loc) {
@@ -88,12 +91,10 @@ private Objective objt;
 			stack = new ItemStack(Material.IRON_PICKAXE);
 			stack.setDurability((short) 40);
 			c.getInventory().setItem(8, stack);
+			c.setScoreboard(scoreboard);
 		}
-		scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-		obj = scoreboard.registerNewObjective("dias", "dummy");
-		objt = scoreboard.registerNewObjective("Zeit", "dummy");
-		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-		obj.setDisplayName("Zeit übrig");
+		
+		
 	}
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onDia(PlayerPickupItemEvent event){
@@ -122,6 +123,7 @@ private Objective objt;
 			updateScoreboard();
 			
 			if(seconds_left <= 0){
+				ende();
 				break;
 			}
 			
@@ -133,6 +135,23 @@ private Objective objt;
 	
 }
 	public void updateScoreboard() {
-		
+		for(Player c : this.getPlugin().getModuleManager().getPlayers()){
+			obj.getScore(c).setScore(dias.get(c));
+		}
+		obj.setDisplayName("Zeit übrig: " + seconds_left);
+	}
+	protected void ende(){
+		Player winner = null;
+		for(Player c : getPlugin().getModuleManager().getPlayers()){
+			if(winner != null){
+				if(dias.get(c) > dias.get(winner)){
+					winner = c;
+				}
+			}else{
+				winner = c;
+			}
+			getPlugin().getModuleManager().addPoints(c, dias.get(c));
+		}
+		getPlugin().getModuleManager().broadcast("&aDer Gewinner ist " + winner.getName());
 	}
 }
