@@ -49,13 +49,13 @@ public class Plugin extends JavaPlugin {
 		
 		modulemanager = new ModuleManager(messages.getConfig(), this);
 		dc = new DigCube(this, modulemanager);
-		parc = new Parcour(this, this.getModuleManager());
-		dm = new Deathmatch(this, this.getModuleManager());
+	//	parc = new Parcour(this, this.getModuleManager());
+	//	dm = new Deathmatch(this, this.getModuleManager());
 	//	Oitc Oitc = new Oitc(this,modulemanager);
 		//modulemanager.registerModule(Oitc);
 		modulemanager.registerModule(dc);
-		modulemanager.registerModule(parc);
-		modulemanager.registerModule(dm);
+		//modulemanager.registerModule(parc);
+		//modulemanager.registerModule(dm);
 		
 		//getServer().getPluginManager()
 		//.registerEvents(new IngameOITCListener(Oitc), this);

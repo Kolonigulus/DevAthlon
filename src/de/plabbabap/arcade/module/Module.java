@@ -162,6 +162,9 @@ public class Module implements Listener{
 	public ArrayList<Location> getSpawns(){
 		return spawns;
 	}
+	public void info(String msg){
+		getPlugin().getLogger().info("[" + name + "] " + msg);
+	}
 	
 	
 }

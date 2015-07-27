@@ -64,9 +64,9 @@ public class GeneralListener implements Listener{
 	@EventHandler
 	public void blockBreak(BlockBreakEvent event){
 		
-		if(plugin.getModuleManager().isIngame() == false){
-			event.setCancelled(true);
-		}
+		//if(plugin.getModuleManager().isIngame() == false){
+		//	event.setCancelled(true);
+		//}
 		
 	}
 	

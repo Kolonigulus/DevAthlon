@@ -258,14 +258,14 @@ public class Parcour extends Module {
 	
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event){
-		if(this.getPlugin().
+	/*	if(this.getPlugin().
 				getModuleManager().
 				getActualModule().
 				getName().
 				equalsIgnoreCase(this.getName())
 				&& (this.getPlugin().getModuleManager().isInLobby() == false)){
 			event.setCancelled(true);
-		}
+		}*/
 	}
 	
 	
